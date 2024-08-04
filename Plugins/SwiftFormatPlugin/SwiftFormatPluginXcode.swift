@@ -38,6 +38,9 @@ import PackagePlugin
     extension SwiftFormatPlugin: XcodeCommandPlugin {
         /// This entry point is called when operating on an Xcode project.
         func performCommand(context: XcodePluginContext, arguments: [String]) throws {
+
+            arguments.append(contentsOf: Rule.allRules.forEach { $0.command })
+
             if arguments.contains("--verbose") {
                 print("Command plugin execution with arguments \(arguments.description) for Swift package \(context.xcodeProject.displayName). All target information: \(context.xcodeProject.targets.description)")
                 print("Plugin will run for directory: \(context.xcodeProject.directory.description)")
