@@ -45,6 +45,6 @@ extension Rule {
 	]
 
 	/// 將設定的規則轉換為命令行指令
-	static var toCommand: [String] { Self.allRules.map { $0command }.flatMap { $0 } }
+	static var toCommand: [String] { Self.allRules.map { $0.command }.flatMap { $0 } }
 }
 
