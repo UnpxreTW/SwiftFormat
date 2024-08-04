@@ -41,7 +41,7 @@ import PackagePlugin
 
             var arguments = arguments
             arguments.append(contentsOf: Rule.allRules.map { $0.command }.flatMap { $0 })
-
+			print(arguments)
             if arguments.contains("--verbose") {
                 print("Command plugin execution with arguments \(arguments.description) for Swift package \(context.xcodeProject.displayName). All target information: \(context.xcodeProject.targets.description)")
                 print("Plugin will run for directory: \(context.xcodeProject.directory.description)")
