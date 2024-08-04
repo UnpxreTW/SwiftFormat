@@ -39,7 +39,8 @@ import PackagePlugin
         /// This entry point is called when operating on an Xcode project.
         func performCommand(context: XcodePluginContext, arguments: [String]) throws {
 
-            arguments.append(contentsOf: Rule.allRules.forEach { $0.command })
+            var arguments = arguments
+            arguments.append(contentsOf: Rule.allRules.map { $0.command }.flatMap { $0 })
 
             if arguments.contains("--verbose") {
                 print("Command plugin execution with arguments \(arguments.description) for Swift package \(context.xcodeProject.displayName). All target information: \(context.xcodeProject.targets.description)")

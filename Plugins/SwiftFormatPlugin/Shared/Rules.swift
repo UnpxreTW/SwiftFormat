@@ -29,9 +29,9 @@ extension Rule {
 		guard let rule = Mirror(reflecting: self).children.first else { return nil }
 		// !!!: 一個規則只會帶一個設定值字串
 		let option = Mirror(reflecting: rule).children.first?.value
-		switch option {
-		case as String:
-			return option
+		return switch option {
+		case is String: option as? String
+		default: nil
 		}
 	}
 
