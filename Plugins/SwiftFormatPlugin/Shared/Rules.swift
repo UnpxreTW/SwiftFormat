@@ -10,11 +10,6 @@ enum Rule {
 
 	/// 不啟用的規則
 	case disable(rules: String)
-
-	// MARK: - 格式規則
-
-	/// 特定縮寫自動全大寫
-	case acronyms
 }
 
 extension Rule {
@@ -38,7 +33,7 @@ extension Rule {
 	/// 要使用於命令行參數的字串
 	var command: [String] {
 		guard let ruleName: String = self.name, let option = self.option else { return [] }
-		return [ruleName, option]
+		return ["--\(ruleName)", option]
 	}
 }
 
@@ -48,5 +43,8 @@ extension Rule {
 	static var allRules: [Rule] = [
 		.disable(rules: "all")
 	]
+
+	/// 將設定的規則轉換為命令行指令
+	static var toCommand: [String] { Self.allRules.map { $0command }.flatMap { $0 } }
 }
 

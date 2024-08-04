@@ -40,7 +40,7 @@ import PackagePlugin
         func performCommand(context: XcodePluginContext, arguments: [String]) throws {
 
             var arguments = arguments
-            arguments.append(contentsOf: Rule.allRules.map { $0.command }.flatMap { $0 })
+            arguments.append(contentsOf: Rule.toCommand)
 			print(arguments)
             if arguments.contains("--verbose") {
                 print("Command plugin execution with arguments \(arguments.description) for Swift package \(context.xcodeProject.displayName). All target information: \(context.xcodeProject.targets.description)")
