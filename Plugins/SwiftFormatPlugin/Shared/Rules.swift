@@ -43,7 +43,7 @@ extension Rule {
 
 	// 所有使用中的規則與其設定值
 	static var allRules: [Rule] = [
-		.disable(rules: "all")
+		.disable("all")
 	]
 
 	/// 將設定的規則轉換為命令行指令
