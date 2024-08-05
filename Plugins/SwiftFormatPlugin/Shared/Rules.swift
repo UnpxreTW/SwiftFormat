@@ -25,7 +25,7 @@ extension Rule {
 		// !!!: 一個規則必會帶一個設定值字串
         let option = Mirror(reflecting: rule).children.dropFirst().first?.value
 		print(option)
-		dump(Mirror(reflecting: rule).children)
+		dump(option)
 		return switch option {
 		case is String: option as? String
 		default: nil
