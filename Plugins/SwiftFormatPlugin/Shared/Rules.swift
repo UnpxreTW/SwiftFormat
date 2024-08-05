@@ -9,7 +9,7 @@
 enum Rule {
 
 	/// 不啟用的規則
-	case disable(rules: String)
+	case disable(String)
 }
 
 extension Rule {
