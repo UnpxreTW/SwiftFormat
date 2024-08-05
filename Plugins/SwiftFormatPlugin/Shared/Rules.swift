@@ -20,13 +20,21 @@ extension Rule {
 	var name: String? { Mirror(reflecting: self).children.first?.label }
 
 	/// 規則的設定值
-	var option: String? { 
-		guard let rule = Mirror(reflecting: self).children.first else { return nil }
-		let option = Mirror(reflecting: rule).children.dropFirst().first?.value
-		if let option = (option as? [String: Any])?.first?.value {
-			return option as? String
+	var option: String? {
+		guard
+			/// 取出當前解析的規則
+			let rule = Mirror(reflecting: self).children.first,
+			/// 取得當前解析規則附帶的設定值
+			let associated = Mirror(reflecting: rule).children.dropFirst().first?.value
+		else { return nil }
+		if let option = associated as? String {
+			// 如果此規則附帶的設定值沒有標題則可以直接轉換為字串
+			return option
+		} else if let option = Mirror(reflecting: associatedValue).children.first?.value as? String {
+			// 如果此規則附帶的設定值有參數如： `.disqble(rules:)` 則需要在做一次反射取得其中的值
+			return option
 		} else {
-			return option as? String
+			return nil
 		}
 	}
 

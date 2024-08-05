@@ -40,6 +40,7 @@ import PackagePlugin
         func performCommand(context: XcodePluginContext, arguments: [String]) throws {
 
             var arguments = arguments
+
             // !!!: 注入常用設定
             arguments.append(contentsOf: Rule.allToCommand)
 
