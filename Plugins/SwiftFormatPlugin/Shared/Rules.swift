@@ -22,8 +22,11 @@ extension Rule {
 	/// 規則的設定值
 	var option: String? { 
 		guard let rule = Mirror(reflecting: self).children.first else { return nil }
-		// !!!: 一個規則必會帶一個設定值字串
-        let option = Mirror(reflecting: rule).children.dropFirst().first?.value
+		let option = Mirror(reflecting: rule).children.dropFirst().first?.value
+		if let option = (option as? [String: Any])?.first?.value {
+			print(option)
+			return option as? String
+		}
 		print(option)
 		dump(option)
 		return switch option {
