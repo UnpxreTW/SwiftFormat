@@ -30,7 +30,7 @@ extension Rule {
 		if let option = associated as? String {
 			// 如果此規則附帶的設定值沒有標題則可以直接轉換為字串
 			return option
-		} else if let option = Mirror(reflecting: associatedValue).children.first?.value as? String {
+		} else if let option = Mirror(reflecting: associated).children.first?.value as? String {
 			// 如果此規則附帶的設定值有參數如： `.disqble(rules:)` 則需要在做一次反射取得其中的值
 			return option
 		} else {
