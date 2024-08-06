@@ -8,8 +8,15 @@
 /// 格式規則
 enum Rule {
 
+	// MARK: 命令參數
+
 	/// 不啟用的規則
 	case disable(rules: String)
+
+	// MARK: 格式規則
+
+	/// 當設定的單字字首為大寫時轉換成全大寫
+	case acronyms(String)
 }
 
 extension Rule {
@@ -51,6 +58,9 @@ extension Rule {
 	static var allRules: [Rule] = [
 		// 預設不啟用所有規則
 		.disable(rules: "all")
+
+		,// 與預設相同選擇 "ID,URL,UUID"
+		.acronyms("ID,URL,UUID")
 	]
 
 	/// 將設定的規則轉換為命令行指令
