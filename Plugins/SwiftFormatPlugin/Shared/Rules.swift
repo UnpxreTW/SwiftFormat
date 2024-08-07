@@ -32,6 +32,9 @@ enum Rule {
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
 	case assertionFailures(Bool)
+
+	/// 在 `import` 區塊後加入空白行
+	case blankLineAfterImports(Bool)
 }
 
 extension Rule {
@@ -111,8 +114,11 @@ extension Rule {
 		, // 偏好使用 `@main`
 		.applicationMain(preferMain: true)
 
-		, //
+		, // 啟用
 		.assertionFailures(true)
+
+		, // 啟用
+		.blankLineAfterImports(true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
