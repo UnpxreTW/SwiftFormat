@@ -23,6 +23,9 @@ enum Rule {
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
 	case andOperator(preferComma: Bool)
+
+	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
+	case anyObjectProtocol(preferAnyObject: Bool)
 }
 
 extension Rule {
@@ -95,6 +98,9 @@ extension Rule {
 
 		, // 偏好逗號取代 `&&` 在判斷式中
 		.andOperator(preferComma: true)
+
+		, // 偏好使用 `AnyObject`
+		.anyObjectProtocol(preferAnyObject: true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
