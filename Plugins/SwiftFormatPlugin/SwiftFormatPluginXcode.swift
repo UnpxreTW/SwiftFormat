@@ -43,6 +43,7 @@ import PackagePlugin
 
             // !!!: 注入常用設定
             arguments.append(contentsOf: Rule.allToCommand)
+            print(arguments)
 
             if arguments.contains("--verbose") {
                 print("Command plugin execution with arguments \(arguments.description) for Swift package \(context.xcodeProject.displayName). All target information: \(context.xcodeProject.targets.description)")
