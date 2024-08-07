@@ -60,7 +60,7 @@ extension Rule {
 			return []
 		}
 		return switch self.option {
-		case let option as String: ["--\(name)", option]
+		case let option as String: ["--enable", "\(name)", "--\(name)", option]
 		case let option as Bool: option ? ["--enable", name] : []
 		default: []
 		}
