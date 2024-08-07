@@ -29,6 +29,9 @@ enum Rule {
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
 	case applicationMain(preferMain: Bool)
+
+	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
+	case assertionFailures(Bool)
 }
 
 extension Rule {
@@ -107,6 +110,9 @@ extension Rule {
 
 		, // 偏好使用 `@main`
 		.applicationMain(preferMain: true)
+
+		, //
+		.assertionFailures(true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
