@@ -21,34 +21,49 @@ enum Rule {
 
 extension Rule {
 
-	/// 取得當前規則的名稱
+	/// 取得當前規則的規則名稱與附帶的設定值
 	///
-	/// 使用 `Mirror` 取得規則名稱
-	var name: String? { Mirror(reflecting: self).children.first?.label }
+	/// - note: 當前使用反射取得其內容
+	private var currentCase: (label: String?, value: Any) { Mirror(reflecting: self).children.first! }
+
+	/// 取得當前規則的名稱
+	private var name: String? { currentCase.label }
 
 	/// 規則的設定值
-	var option: String? {
-		guard
-			/// 取出當前解析的規則
-			let rule = Mirror(reflecting: self).children.first,
-			/// 取得當前解析規則附帶的設定值
-			let associated = Mirror(reflecting: rule).children.dropFirst().first?.value
-		else { return nil }
-		if let option = associated as? String {
-			// 如果此規則附帶的設定值沒有標題則可以直接轉換為字串
-			return option
-		} else if let option = Mirror(reflecting: associated).children.first?.value as? String {
-			// 如果此規則附帶的設定值有參數如： `.disqble(rules:)` 則需要在做一次反射取得其中的值
-			return option
+	///
+	/// - note: 規則可能不包含設定值
+	private var option: Any? {
+		// !!!: `currentCase` 中第一個子元素為 case 本身，捨棄掉第一個元素後下一個元素應為其附帶的設定
+		guard let associated = Mirror(reflecting: currentCase).children.dropFirst().first?.value else { return nil }
+		return switch associated {
+		// !!!: 如果附帶設定不包含標題時值可以直接取得設定值
+		case let option as String: option
+		case let option as Bool: option
+		// !!!: 嘗試再次反射取得附加參數標題與設定值
+		default: if let option = Mirror(reflecting: associated).children.first?.value { 
+			switch option {
+			case let option as String: option
+			case let option as Bool: option
+			default: nil
+			}
 		} else {
-			return nil
-		}
+			nil
+		}}
 	}
 
-	/// 要使用於命令行參數的字串
-	var command: [String] {
-		guard let ruleName: String = self.name, let option = self.option else { return [] }
-		return ["--\(ruleName)", option]
+	/// 使用當前命令設定產生使用於命令行參數的字串
+	private var command: [String] {
+		/// 如果無法正確取得名稱則可能為錯誤的配置不回傳產生的指令
+		guard let name: String = self.name else {
+			print("錯誤的規則名稱：")
+			dump(self)
+			return []
+		}
+		return switch self.option {
+		case let option as String: ["--\(name)", option]
+		case let option as Bool: option ? ["--enable", name] : []
+		default: []
+		}
 	}
 }
 
