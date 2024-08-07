@@ -35,6 +35,9 @@ enum Rule {
 
 	/// 在 `import` 區塊後加入空白行
 	case blankLineAfterImports(Bool)
+
+	/// 在每個 `switch` 中的 `case` 間插入空白行
+	case blankLineAfterSwitchCase(Bool)
 }
 
 extension Rule {
@@ -119,6 +122,9 @@ extension Rule {
 
 		, // 啟用
 		.blankLineAfterImports(true)
+
+		, // 不在 `switch` 中的每個 `case` 間插入空白行
+		.blankLineAfterSwitchCase(false)
 	]
 
 	/// 將設定的規則轉換為命令行指令
