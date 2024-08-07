@@ -26,6 +26,9 @@ enum Rule {
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
 	case anyObjectProtocol(preferAnyObject: Bool)
+
+	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
+	case applicationMain(preferMain: Bool)
 }
 
 extension Rule {
@@ -101,6 +104,9 @@ extension Rule {
 
 		, // 偏好使用 `AnyObject`
 		.anyObjectProtocol(preferAnyObject: true)
+
+		, // 偏好使用 `@main`
+		.applicationMain(preferMain: true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
