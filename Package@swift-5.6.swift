@@ -6,19 +6,20 @@ let package = Package(
     products: [
         .executable(name: "swiftformat", targets: ["CommandLineTool"]),
         .library(name: "SwiftFormat", targets: ["SwiftFormat"]),
-        .plugin(name: "SwiftFormatPlugin", targets: ["SwiftFormatPlugin"]),
+        .plugin(name: "SwiftFormatPlugin", targets: ["Formatting"]),
     ],
     targets: [
         .executableTarget(name: "CommandLineTool", dependencies: ["SwiftFormat"], path: "CommandLineTool"),
         .target(name: "SwiftFormat", path: "Sources"),
         .testTarget(name: "SwiftFormatTests", dependencies: ["SwiftFormat"], path: "Tests"),
-        .plugin(name: "SwiftFormatPlugin",
+        .plugin(name: "Formatting",
                 capability: .command(
                     intent: .custom(verb: "swiftformat", description: "Formats Swift source files using SwiftFormat"),
                     permissions: [
                         .writeToPackageDirectory(reason: "This command reformats source files"),
                     ]
                 ),
-                dependencies: [.target(name: "CommandLineTool")]),
+                dependencies: [.target(name: "CommandLineTool")],
+                path: "Plugins/SwiftFormatPlugin")
     ]
 )
