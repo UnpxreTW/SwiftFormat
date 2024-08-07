@@ -59,9 +59,10 @@ extension Rule {
 			dump(self)
 			return []
 		}
+		var command: [String] = if case .disable = self { [] } else { ["--enable", "\(name)"] }
 		return switch self.option {
-		case let option as String: ["--enable", "\(name)", "--\(name)", option]
-		case let option as Bool: option ? ["--enable", name] : []
+		case let option as String: command + ["--\(name)", option]
+		case let option as Bool: option ? command : []
 		default: []
 		}
 	}
