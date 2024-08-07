@@ -17,6 +17,9 @@ enum Rule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
 	case acronyms(String)
+
+	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
+	case andOperator(preferComma: Bool)
 }
 
 extension Rule {
@@ -77,6 +80,9 @@ extension Rule {
 
 		,// 與預設相同選擇 "ID,URL,UUID"
 		.acronyms("ID,URL,UUID")
+
+		,// 偏好逗號取代 `&&` 在判斷式中
+		.andOperator(preferComma: true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
