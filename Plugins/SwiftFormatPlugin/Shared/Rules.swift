@@ -65,7 +65,13 @@ extension Rule {
 			dump(self)
 			return []
 		}
-		var command: [String] = if case .disable = self { [] } else { ["--enable", "\(name)"] }
+		var command: [String] = if case .disable = self {
+			[]
+		} else if case .swiftversion = self {
+			[]
+		} else {
+			["--enable", "\(name)"]
+		}
 		return switch self.option {
 		case let option as String: command + ["--\(name)", option]
 		case let option as Bool: option ? command : []
