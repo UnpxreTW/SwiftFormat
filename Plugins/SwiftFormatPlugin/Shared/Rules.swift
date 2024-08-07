@@ -13,6 +13,9 @@ enum Rule {
 	/// 不啟用的規則
 	case disable(rules: String)
 
+	/// 使用的 Swift 版本
+	case swiftversion(String)
+
 	// MARK: 格式規則
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
@@ -78,10 +81,13 @@ extension Rule {
 		// 預設不啟用所有規則
 		.disable(rules: "all")
 
-		,// 與預設相同選擇 "ID,URL,UUID"
+		, // 當前使用版本 `5.10`
+		.swiftversion("5.10")
+
+		, // 與預設相同選擇 "ID,URL,UUID"
 		.acronyms("ID,URL,UUID")
 
-		,// 偏好逗號取代 `&&` 在判斷式中
+		, // 偏好逗號取代 `&&` 在判斷式中
 		.andOperator(preferComma: true)
 	]
 
