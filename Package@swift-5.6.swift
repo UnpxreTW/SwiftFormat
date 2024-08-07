@@ -6,7 +6,7 @@ let package = Package(
     products: [
         .executable(name: "swiftformat", targets: ["CommandLineTool"]),
         .library(name: "SwiftFormat", targets: ["SwiftFormat"]),
-        .plugin(name: "SwiftFormatPlugin", targets: ["SwiftFormatPlugin"]),
+        .plugin(name: "SwiftFormatPlugin", targets: ["Formatting"]),
     ],
     targets: [
         .executableTarget(
@@ -21,7 +21,7 @@ let package = Package(
             exclude: ["Info.plist", "GlobTest[5].txt"]
         ),
         .plugin(
-            name: "SwiftFormatPlugin",
+            name: "Formatting",
             capability: .command(
                 intent: .custom(
                     verb: "swiftformat", description: "Formats Swift source files using SwiftFormat"
