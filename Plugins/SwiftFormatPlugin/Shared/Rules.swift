@@ -74,7 +74,7 @@ extension Rule {
 			dump(self)
 			return []
 		}
-		var command: [String] = if case .disable = self {
+		let command: [String] = if case .disable = self {
 			[]
 		} else if case .swiftversion = self {
 			[]
