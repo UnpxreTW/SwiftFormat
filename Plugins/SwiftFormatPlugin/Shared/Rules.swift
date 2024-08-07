@@ -83,7 +83,7 @@ extension Rule {
 extension Rule {
 
 	// 所有使用中的規則與其設定值
-	static var allRules: [Rule] = [
+	static let allRules: [Rule] = [
 		// 預設不啟用所有規則
 		.disable(rules: "all")
 
