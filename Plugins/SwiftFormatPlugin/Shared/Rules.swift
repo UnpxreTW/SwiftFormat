@@ -8,16 +8,6 @@
 /// 格式規則
 enum Rule {
 
-	// MARK: 命令參數
-
-	/// 不啟用的規則
-	case disable(rules: String)
-
-	/// 使用的 Swift 版本
-	case swiftversion(String)
-
-	// MARK: 格式規則
-
 	/// 當設定的單字字首為大寫時轉換成全大寫
 	case acronyms(String)
 
@@ -77,19 +67,7 @@ extension Rule {
 
 	/// 使用當前命令設定產生使用於命令行參數的字串
 	private var command: [String] {
-		/// 如果無法正確取得名稱則可能為錯誤的配置不回傳產生的指令
-		guard let name: String = self.name else {
-			print("錯誤的規則名稱：")
-			dump(self)
-			return []
-		}
-		let command: [String] = if case .disable = self {
-			[]
-		} else if case .swiftversion = self {
-			[]
-		} else {
-			["--enable", "\(name)"]
-		}
+		let command: [String] = ["--enable", "\(name)"]
 		return switch self.option {
 		case let option as String: command + ["--\(name)", option]
 		case let option as Bool: option ? command : []
@@ -102,12 +80,6 @@ extension Rule {
 
 	// 所有使用中的規則與其設定值
 	static let allRules: [Rule] = [
-		// 預設不啟用所有規則
-		.disable(rules: "all")
-
-		, // 當前使用版本 `5.10`
-		.swiftversion("5.10")
-
 		, // 與預設相同選擇 "ID,URL,UUID"
 		.acronyms("ID,URL,UUID")
 

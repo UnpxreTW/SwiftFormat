@@ -41,6 +41,12 @@ import PackagePlugin
 
             var arguments = arguments
 
+            // !!!: 預先關閉所有規則
+            arguments.append(contentsOf: ["--disable", "all"])
+
+            /// 設定版本為 Swift 6.0
+            arguments.append(contentsOf: ["--swiftversion", "6.0"])
+
             // !!!: 注入常用設定
             arguments.append(contentsOf: Rule.allToCommand)
             print(arguments)
