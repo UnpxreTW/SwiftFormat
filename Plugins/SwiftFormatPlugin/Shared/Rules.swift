@@ -38,6 +38,12 @@ enum Rule {
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
 	case blankLineAfterSwitchCase(Bool)
+
+	/// 在 `MARK` 註解周圍加上空白行
+	case blankLinesAroundMark(Bool)
+
+	/// 為 ```Rule.blankLinesAroundMark``` 的選項，預設為 `true`（在 MARK 後加入空白行）
+	case lineaftermarks(Bool)
 }
 
 extension Rule {
@@ -125,6 +131,9 @@ extension Rule {
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
 		.blankLineAfterSwitchCase(false)
+
+		, // 在 MARK 註解周圍加上空白行
+		.blankLinesAroundMark(true), .lineaftermarks(true)
 	]
 
 	/// 將設定的規則轉換為命令行指令
