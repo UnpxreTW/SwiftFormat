@@ -68,12 +68,14 @@ extension Rule {
 	/// 使用當前命令設定產生使用於命令行參數的字串
 	private var command: [String] {
 		guard let name = self.name else { return [] }
-		let command: [String] = ["--enable", "\(name)"]
-		return switch self.option {
-		case let option as String: command + ["--\(name)", option]
-		case let option as Bool: option ? command : []
-		default: []
+		var command: [String] = ["--enable", "\(name)"]
+		Mirror(reflecting: currentCase.value).children.forEach { label, option in
+			switch option {
+			case let option as String: comman + ["--\(name)", option]
+			default: break
+			}
 		}
+		return command
 	}
 }
 
