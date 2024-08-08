@@ -41,41 +41,16 @@ extension Rule {
 	private var currentCase: (label: String?, value: Any) { Mirror(reflecting: self).children.first! }
 
 	/// 取得當前規則的名稱
-	private var name: String? { currentCase.label }
-
-	/// 規則的設定值
-	///
-	/// - note: 規則可能不包含設定值
-	private var option: Any? {
-		// !!!: `currentCase` 中第一個子元素為 case 本身，捨棄掉第一個元素後下一個元素應為其附帶的設定
-		guard let associated = Mirror(reflecting: currentCase).children.dropFirst().first?.value else { return nil }
-		return switch associated {
-		// !!!: 如果附帶設定不包含標題時值可以直接取得設定值
-		case let option as String: option
-		case let option as Bool: option
-		// !!!: 嘗試再次反射取得附加參數標題與設定值
-		default: if let option = Mirror(reflecting: associated).children.first?.value { 
-			switch option {
-			case let option as String: option
-			case let option as Bool: option
-			default: nil
-			}
-		} else {
-			nil
-		}}
-	}
+	private var name: String { currentCase.label! }
 
 	/// 使用當前命令設定產生使用於命令行參數的字串
 	private var command: [String] {
-		guard let name = self.name else { return [] }
-		var command: [String] = ["--enable", "\(name)"]
-		Mirror(reflecting: currentCase.value).children.forEach { label, option in
-			switch option {
-			case let option as String: comman + ["--\(name)", option]
-			default: break
+        return ["--enable", "\(name)"] + Mirror(reflecting: currentCase.value).children.map { (label, option) -> [String] in
+            switch option {
+			case let option as String: ["--\(name)", option]
+			default: []
 			}
-		}
-		return command
+        }.flatMap { $0 }
 	}
 }
 
