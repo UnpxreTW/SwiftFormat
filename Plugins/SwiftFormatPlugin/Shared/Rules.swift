@@ -67,6 +67,7 @@ extension Rule {
 
 	/// 使用當前命令設定產生使用於命令行參數的字串
 	private var command: [String] {
+		guard let name = self.name else { return [] }
 		let command: [String] = ["--enable", "\(name)"]
 		return switch self.option {
 		case let option as String: command + ["--\(name)", option]
