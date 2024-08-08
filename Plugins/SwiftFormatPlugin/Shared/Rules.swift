@@ -83,7 +83,7 @@ extension Rule {
 
 	// 所有使用中的規則與其設定值
 	static let allRules: [Rule] = [
-		, // 與預設相同選擇 "ID,URL,UUID"
+		  // 與預設相同選擇 "ID,URL,UUID"
 		.acronyms("ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
