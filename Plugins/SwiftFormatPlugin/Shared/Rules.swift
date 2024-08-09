@@ -87,3 +87,30 @@ extension Rule {
 	static var allToCommand: [String] { Self.allRules.map { $0.command }.flatMap { $0 } }
 }
 
+extension Rule {
+
+	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
+	///
+	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
+	struct EnableFlag: Equatable {
+
+		/// 規則啟用
+		static let enable: Self = .init(true)
+
+		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
+		static let disable: Self = .init(false)
+
+		private init(_ flag: Bool) {
+			self._flag = flag
+		}
+
+		private let _flag: Bool
+	}
+}
+
+extension Rule.EnableFlag: CustomStringConvertible {
+
+	var description: String {
+		self._flag ? "enable" : "disable"
+	}
+}

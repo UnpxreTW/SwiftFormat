@@ -42,6 +42,7 @@ import PackagePlugin
             var arguments = arguments
 
             // !!!: 預先關閉所有規則
+            // TODO: 等待所有規則列舉完成後移除
             arguments.append(contentsOf: ["--disable", "all"])
 
             /// 設定版本為 Swift 6.0
