@@ -9,28 +9,28 @@
 enum Rule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(String)
+	case acronyms(EnableFlag, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: Bool)
+	case andOperator(preferComma: EnableFlag)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: Bool)
+	case anyObjectProtocol(preferAnyObject: EnableFlag)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: Bool)
+	case applicationMain(preferMain: EnableFlag)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(Bool)
+	case assertionFailures(EnableFlag)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(Bool)
+	case blankLineAfterImports(EnableFlag)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(Bool)
+	case blankLineAfterSwitchCase(EnableFlag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(Bool)
+	case blankLinesAroundMark(EnableFlag)
 }
 
 extension Rule {
@@ -45,12 +45,19 @@ extension Rule {
 
 	/// 使用當前命令設定產生使用於命令行參數的字串
 	private var command: [String] {
-        return ["--enable", "\(name)"] + Mirror(reflecting: currentCase.value).children.map { (label, option) -> [String] in
-            switch option {
-			case let option as String: ["--\(name)", option]
-			default: []
+		var command: [String] = []
+		for (label, option) in Mirror(reflecting: currentCase.value).children {
+			if let isEnable = option as? EnableFlag {
+				command.append(contentsOf: ["--\(isEnable)", "name"])
+				guard isEnable == .enable else { break }
+				continue
 			}
-        }.flatMap { $0 }
+			switch option {
+			case let option as String: command.append(option)
+			default: break
+			}
+		}
+		return command
 	}
 }
 
@@ -58,29 +65,30 @@ extension Rule {
 
 	// 所有使用中的規則與其設定值
 	static let allRules: [Rule] = [
+
 		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms("ID,URL,UUID")
+		.acronyms(.enable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: true)
+		.andOperator(preferComma: .enable)
 
 		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: true)
+		.anyObjectProtocol(preferAnyObject: .enable)
 
 		, // 偏好使用 `@main`
-		.applicationMain(preferMain: true)
+		.applicationMain(preferMain: .enable)
 
 		, // 啟用
-		.assertionFailures(true)
+		.assertionFailures(.enable)
 
 		, // 啟用
-		.blankLineAfterImports(true)
+		.blankLineAfterImports(.enable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(false)
+		.blankLineAfterSwitchCase(.disable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(true)
+		.blankLinesAroundMark(.enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
