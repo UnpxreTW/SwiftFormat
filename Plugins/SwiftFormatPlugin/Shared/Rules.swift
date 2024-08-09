@@ -53,7 +53,12 @@ extension Rule {
 				continue
 			}
 			switch option {
-			case let option as String: command.append(option)
+			case let option as String:
+				if let label, !label.isEmpty {
+					command.append(contentsOf: ["--\(label)", option])
+				} else {
+					command.append(contentsOf: ["--\(name)", option])
+				}
 			default: break
 			}
 		}
