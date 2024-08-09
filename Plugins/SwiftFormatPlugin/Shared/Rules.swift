@@ -48,7 +48,7 @@ extension Rule {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
 			if let isEnable = option as? EnableFlag {
-				command.append(contentsOf: ["--\(isEnable)", "name"])
+				command.append(contentsOf: ["--\(isEnable)", name])
 				guard isEnable == .enable else { break }
 				continue
 			}
