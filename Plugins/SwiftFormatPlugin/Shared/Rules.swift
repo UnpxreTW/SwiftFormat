@@ -79,28 +79,28 @@ extension Rule {
 	static let allRules: [Rule] = [
 
 		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms(.enable, "ID,URL,UUID")
+		.acronyms(.ruleEnable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: .enable)
+		.andOperator(preferComma: .ruleEnable)
 
 		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: .enable)
+		.anyObjectProtocol(preferAnyObject: .ruleEnable)
 
 		, // 偏好使用 `@main`
-		.applicationMain(preferMain: .enable)
+		.applicationMain(preferMain: .ruleEnable)
 
 		, // 啟用
-		.assertionFailures(.enable)
+		.assertionFailures(.ruleEnable)
 
 		, // 啟用
-		.blankLineAfterImports(.enable)
+		.blankLineAfterImports(.ruleEnable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(.disable)
+		.blankLineAfterSwitchCase(.ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(.enable)
+		.blankLinesAroundMark(.ruleEnable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -112,15 +112,27 @@ extension Rule {
 	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
-	struct EnableFlag: Equatable {
+	struct EnableFlag: OptionSet {
 
-		/// 規則啟用
-		static let enable: Self = .init(true)
+		public static let disable: Self = .init(rawValue: 0)
+
+		public static let enable: Self = .init(rawValue: 1)
+
+		/// 標示其為標記規則的啟用與否
+		private static let isRuleFlag: Self = .init(rawValue: 1 << 1)
+
+		/// 用於規則的啟用
+		public static let ruleEnable: Self = [.isRuleFlag, .enable]
 
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		static let disable: Self = .init(false)
+		public static let ruleDisable: Self = [.isRuleFlag, .disable]
 
-		private let _flag: Bool
+		internal var rawValue: Int
+
+
+		internal init(rawValue: Int) {
+			self.rawValue = rawValue
+		}
 
 		internal init(_ flag: Bool) {
 			self._flag = flag
