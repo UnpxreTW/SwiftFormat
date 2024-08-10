@@ -57,6 +57,7 @@ extension Rule {
 				if let label, !label.isEmpty, label.first != "." {
 					command.append(contentsOf: ["--\(label)", option])
 				} else {
+					// !!!: 如未指定參數標籤時標籤會為 "." 開頭的參數偏移數字，此時需要以規則名稱開頭
 					command.append(contentsOf: ["--\(name)", option])
 				}
 			default: break
