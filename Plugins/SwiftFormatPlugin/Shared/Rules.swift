@@ -54,8 +54,8 @@ extension Rule {
 			}
 			if label == "_flag", let isEnable = option as? Bool {
 				// !!!: 有可能在反射中 ```EnableFlag``` 被展開，導致失去結構訊息
-				command.append(contentsOf: ["--\(EnableFlag(enable))", name])
-				guard option else { break }
+				command.append(contentsOf: ["--\(EnableFlag(isEnable))", name])
+				guard isEnable else { break }
 				continue
 			}
 			switch option {
