@@ -52,11 +52,18 @@ extension Rule {
 				guard isEnable == .enable else { break }
 				continue
 			}
+			if label == "_flag", let isEnable = option as? Bool {
+				// !!!: 有可能在反射中 ```EnableFlag``` 被展開，導致失去結構訊息
+				command.append(contentsOf: ["--\(EnableFlag(isEnable))", name])
+				guard isEnable else { break }
+				continue
+			}
 			switch option {
 			case let option as String:
 				if let label, !label.isEmpty, label.first != "." {
 					command.append(contentsOf: ["--\(label)", option])
 				} else {
+					// !!!: 如未指定參數標籤時標籤會為 "." 開頭的參數偏移數字，此時需要以規則名稱開頭
 					command.append(contentsOf: ["--\(name)", option])
 				}
 			default: break
@@ -113,11 +120,11 @@ extension Rule {
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
 		static let disable: Self = .init(false)
 
-		private init(_ flag: Bool) {
+		private let _flag: Bool
+
+		internal init(_ flag: Bool) {
 			self._flag = flag
 		}
-
-		private let _flag: Bool
 	}
 }
 
