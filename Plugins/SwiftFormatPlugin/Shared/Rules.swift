@@ -9,28 +9,28 @@
 enum Rule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(EnableFlag, String)
+	case acronyms(Option, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: EnableFlag)
+	case andOperator(preferComma: Option)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: EnableFlag)
+	case anyObjectProtocol(preferAnyObject: Option)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: EnableFlag)
+	case applicationMain(preferMain: Option)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(EnableFlag)
+	case assertionFailures(Option)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(EnableFlag)
+	case blankLineAfterImports(Option)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(EnableFlag)
+	case blankLineAfterSwitchCase(Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(EnableFlag)
+	case blankLinesAroundMark(Option)
 }
 
 extension Rule {
@@ -49,15 +49,9 @@ extension Rule {
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
 			dump(option)
 			print("\(label), \(option)")
-			if let isEnable = option as? EnableFlag {
-				command.append(contentsOf: ["--\(isEnable)", name])
-				guard isEnable == .enable else { break }
-				continue
-			}
-			if label == "_flag", let isEnable = option as? Bool {
-				// !!!: 有可能在反射中 ```EnableFlag``` 被展開，導致失去結構訊息
-				command.append(contentsOf: ["--\(EnableFlag(isEnable))", name])
-				guard isEnable else { break }
+			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
+				command.append(contentsOf: ["--\(ruleEnable)", name])
+				guard ruleEnable.contains(.enable) else { break }
 				continue
 			}
 			switch option {
@@ -114,37 +108,43 @@ extension Rule {
 	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
-	struct EnableFlag: OptionSet {
+	struct Option: OptionSet {
 
-		public static let disable: Self = .init(rawValue: 0)
+		static let disable: Self = .init(rawValue: 0)
 
-		public static let enable: Self = .init(rawValue: 1)
+		static let enable: Self = .init(rawValue: 1)
 
 		/// 標示其為標記規則的啟用與否
-		private static let isRuleFlag: Self = .init(rawValue: 1 << 1)
+		static let isRuleFlag: Self = .init(rawValue: 1 << 1)
 
 		/// 用於規則的啟用
-		public static let ruleEnable: Self = [.isRuleFlag, .enable]
+		static let ruleEnable: Self = [.isRuleFlag, .enable]
 
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		public static let ruleDisable: Self = [.isRuleFlag, .disable]
+		static let ruleDisable: Self = [.isRuleFlag, .disable]
 
-		internal var rawValue: Int
+		var rawValue: Int
 
+		private var _custom: String
 
-		internal init(rawValue: Int) {
+		init(rawValue: Int) {
 			self.rawValue = rawValue
+			self._custom = ""
 		}
 
-		internal init(_ flag: Bool) {
-			self._flag = flag
+		init(rawValue: Int, with custom: String) {
+			self.init(rawValue: rawValue)
+			self._custom = custom
 		}
 	}
 }
 
-extension Rule.EnableFlag: CustomStringConvertible {
+extension Rule.Option: CustomStringConvertible {
 
 	var description: String {
-		self._flag ? "enable" : "disable"
+		switch self {
+		case .isRuleFlag: self.contains(.enable) ? "enable" : "disable"
+		default: ""
+		}
 	}
 }
