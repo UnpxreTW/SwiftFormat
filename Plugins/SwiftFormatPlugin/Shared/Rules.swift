@@ -114,11 +114,11 @@ extension Rule {
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
 		static let disable: Self = .init(false)
 
-		private init(_ flag: Bool) {
+		private let _flag: Bool
+
+		internal init(_ flag: Bool) {
 			self._flag = flag
 		}
-
-		private let _flag: Bool
 	}
 }
 
