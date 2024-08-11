@@ -108,41 +108,34 @@ extension Rule {
 	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
-	struct Option: OptionSet {
+	class Option: OptionSet {
 
-		static let disable: Self = .init(rawValue: 0)
+		static let disable: Option = .init(rawValue: 0)
 
-		static let enable: Self = .init(rawValue: 1)
+		static let enable: Option = .init(rawValue: 1)
 
 		/// 標示其為標記規則的啟用與否
-		static let isRuleFlag: Self = .init(rawValue: 1 << 1)
+		static let isRuleFlag: Option = .init(rawValue: 1 << 1)
 
 		/// 用於規則的啟用
-		static let ruleEnable: Self = [.isRuleFlag, .enable]
+		static let ruleEnable: Option = [.isRuleFlag, .enable]
 
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		static let ruleDisable: Self = [.isRuleFlag, .disable]
+		static let ruleDisable: Option = [.isRuleFlag, .disable]
 
 		var rawValue: Int
 
 		private var _custom: String = "._"
 
-		init(rawValue: Int) {
+        required init(rawValue: Int) {
 			self.rawValue = rawValue
 			self._custom = ""
 		}
 
-		init(rawValue: Int, with custom: String) {
+        convenience init(rawValue: Int, with custom: String) {
 			self.init(rawValue: rawValue)
 			self._custom = custom
 		}
-	}
-}
-
-extension Rule.Option: CustomReflectable {
-
-	var customMirror: Mirror {
-		Mirror(self, unlabeledChildren: [self], displayStyle: .class)
 	}
 }
 
