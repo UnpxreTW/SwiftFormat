@@ -32,7 +32,7 @@ enum Rule {
 	case blankLineAfterSwitchCase(set: Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(set: Option)
+	case blankLinesAroundMark(set: Option, lineaftermarks: Option)
 }
 
 extension Rule {
@@ -98,7 +98,7 @@ extension Rule {
 		.blankLineAfterSwitchCase(set: .ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(set: .ruleEnable)
+		.blankLinesAroundMark(set: .ruleEnable, lineaftermarks: [.enable, .convertToTrueOrFlase])
 	]
 
 	/// 將設定的規則轉換為命令行指令
