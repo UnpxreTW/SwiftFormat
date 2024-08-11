@@ -94,7 +94,7 @@ extension Rule {
 		.blankLineAfterImports(set: .ruleEnable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(set: .ruleEnable)
+		.blankLineAfterSwitchCase(set: .disable)
 
 		, // 在 MARK 註解周圍加上空白行
 		.blankLinesAroundMark(set: .ruleEnable, lineaftermarks: [.enable, .convertToTrueOrFlase])
