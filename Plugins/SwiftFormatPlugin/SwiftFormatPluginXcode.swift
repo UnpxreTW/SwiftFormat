@@ -49,7 +49,7 @@ import PackagePlugin
             arguments.append(contentsOf: ["--swiftversion", "6.0"])
 
             // !!!: 注入常用設定
-            arguments.append(contentsOf: Rule.allToCommand)
+            arguments.append(contentsOf: FormatRule.allToCommand)
             print(arguments)
 
             if arguments.contains("--verbose") {
