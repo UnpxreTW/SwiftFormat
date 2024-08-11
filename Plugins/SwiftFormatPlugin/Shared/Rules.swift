@@ -6,31 +6,33 @@
 //
 
 /// 格式規則
+///
+/// - Important: 當附帶的參數只有 ```Rule.Option``` 時應該提供參數名稱使反射時正常解析
 enum Rule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(EnableFlag, String)
+	case acronyms(Option, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: EnableFlag)
+	case andOperator(preferComma: Option)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: EnableFlag)
+	case anyObjectProtocol(preferAnyObject: Option)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: EnableFlag)
+	case applicationMain(preferMain: Option)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(EnableFlag)
+	case assertionFailures(set: Option)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(EnableFlag)
+	case blankLineAfterImports(set: Option)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(EnableFlag)
+	case blankLineAfterSwitchCase(set: Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(EnableFlag)
+	case blankLinesAroundMark(set: Option)
 }
 
 extension Rule {
@@ -47,15 +49,9 @@ extension Rule {
 	private var command: [String] {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
-			if let isEnable = option as? EnableFlag {
-				command.append(contentsOf: ["--\(isEnable)", name])
-				guard isEnable == .enable else { break }
-				continue
-			}
-			if label == "_flag", let isEnable = option as? Bool {
-				// !!!: 有可能在反射中 ```EnableFlag``` 被展開，導致失去結構訊息
-				command.append(contentsOf: ["--\(EnableFlag(isEnable))", name])
-				guard isEnable else { break }
+			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
+				command.append(contentsOf: ["--\(ruleEnable)", name])
+				guard ruleEnable.contains(.enable) else { break }
 				continue
 			}
 			switch option {
@@ -79,28 +75,28 @@ extension Rule {
 	static let allRules: [Rule] = [
 
 		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms(.enable, "ID,URL,UUID")
+		.acronyms(.ruleEnable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: .enable)
+		.andOperator(preferComma: .ruleEnable)
 
 		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: .enable)
+		.anyObjectProtocol(preferAnyObject: .ruleEnable)
 
 		, // 偏好使用 `@main`
-		.applicationMain(preferMain: .enable)
+		.applicationMain(preferMain: .ruleEnable)
 
 		, // 啟用
-		.assertionFailures(.enable)
+		.assertionFailures(set: .ruleEnable)
 
 		, // 啟用
-		.blankLineAfterImports(.enable)
+		.blankLineAfterImports(set: .ruleEnable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(.disable)
+		.blankLineAfterSwitchCase(set: .ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(.enable)
+		.blankLinesAroundMark(set: .ruleEnable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -112,25 +108,43 @@ extension Rule {
 	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
-	struct EnableFlag: Equatable {
+	struct Option: OptionSet {
 
-		/// 規則啟用
-		static let enable: Self = .init(true)
+		static let disable: Option = .init(rawValue: 0)
+
+		static let enable: Option = .init(rawValue: 1)
+
+		/// 標示其為標記規則的啟用與否
+		static let isRuleFlag: Option = .init(rawValue: 1 << 1)
+
+		/// 用於規則的啟用
+		static let ruleEnable: Option = [.isRuleFlag, .enable]
 
 		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		static let disable: Self = .init(false)
+		static let ruleDisable: Option = [.isRuleFlag, .disable]
 
-		private let _flag: Bool
+		var rawValue: Int
 
-		internal init(_ flag: Bool) {
-			self._flag = flag
+		private var _custom: String = ""
+
+		init(rawValue: Int) {
+			self.rawValue = rawValue
+		}
+
+		init(rawValue: Int, with custom: String) {
+			self.init(rawValue: rawValue)
+			self._custom = custom
 		}
 	}
 }
 
-extension Rule.EnableFlag: CustomStringConvertible {
+extension Rule.Option: CustomStringConvertible {
 
 	var description: String {
-		self._flag ? "enable" : "disable"
+		if self.contains(.isRuleFlag) {
+			self.contains(.enable) ? "enable" : "disable"
+		} else {
+			""
+		}
 	}
 }
