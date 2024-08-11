@@ -12,25 +12,25 @@ enum FormatRule {
 	case acronyms(rule: RuleFlag, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: Option)
+	case andOperator(preferComma: RuleFlag)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: Option)
+	case anyObjectProtocol(preferAnyObject: RuleFlag)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: Option)
+	case applicationMain(preferMain: RuleFlag)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(set: Option)
+	case assertionFailures(set: RuleFlag)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(set: Option)
+	case blankLineAfterImports(set: RuleFlag)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(set: Option)
+	case blankLineAfterSwitchCase(set: RuleFlag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(set: Option, lineaftermarks: Option)
+	case blankLinesAroundMark(set: RuleFlag, lineaftermarks: Option)
 }
 
 extension FormatRule {
@@ -85,25 +85,25 @@ extension FormatRule {
 		.acronyms(rule: .enable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: .ruleEnable)
+		.andOperator(preferComma: .enable)
 
 		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: .ruleEnable)
+		.anyObjectProtocol(preferAnyObject: .enable)
 
 		, // 偏好使用 `@main`
-		.applicationMain(preferMain: .ruleEnable)
+		.applicationMain(preferMain: .enable)
 
 		, // 啟用
-		.assertionFailures(set: .ruleEnable)
+		.assertionFailures(set: .enable)
 
 		, // 啟用
-		.blankLineAfterImports(set: .ruleEnable)
+		.blankLineAfterImports(set: .enable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(set: .ruleDisable)
+		.blankLineAfterSwitchCase(set: .disable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(set: .ruleEnable, lineaftermarks: [.enable, .convertToTrueOrFlase])
+		.blankLinesAroundMark(set: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
 	]
 
 	/// 將設定的規則轉換為命令行指令
