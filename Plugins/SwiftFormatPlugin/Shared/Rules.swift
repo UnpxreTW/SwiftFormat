@@ -6,6 +6,8 @@
 //
 
 /// 格式規則
+///
+/// - Important: 當附帶的參數只有 ```Rule.Option``` 時應該提供參數名稱使反射時正常解析
 enum Rule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
@@ -21,16 +23,16 @@ enum Rule {
 	case applicationMain(preferMain: Option)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(is: Option)
+	case assertionFailures(set: Option)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(is: Option)
+	case blankLineAfterImports(set: Option)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(is: Option)
+	case blankLineAfterSwitchCase(set: Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(is: Option)
+	case blankLinesAroundMark(set: Option)
 }
 
 extension Rule {
@@ -47,8 +49,6 @@ extension Rule {
 	private var command: [String] {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
-			dump(option)
-			print("\(label), \(option)\n")
 			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
 				command.append(contentsOf: ["--\(ruleEnable)", name])
 				guard ruleEnable.contains(.enable) else { break }
@@ -87,16 +87,16 @@ extension Rule {
 		.applicationMain(preferMain: .ruleEnable)
 
 		, // 啟用
-		.assertionFailures(is: .ruleEnable)
+		.assertionFailures(set: .ruleEnable)
 
 		, // 啟用
-		.blankLineAfterImports(is: .ruleEnable)
+		.blankLineAfterImports(set: .ruleEnable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(is: .ruleEnable)
+		.blankLineAfterSwitchCase(set: .ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(is: .ruleEnable)
+		.blankLinesAroundMark(set: .ruleEnable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -133,7 +133,7 @@ extension Rule {
 
 		init(rawValue: Int, with custom: String) {
 			self.init(rawValue: rawValue)
-            self._custom = custom
+			self._custom = custom
 		}
 	}
 }
