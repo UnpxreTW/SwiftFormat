@@ -125,7 +125,7 @@ extension Rule {
 
 		var rawValue: Int
 
-		private var _custom: String
+		private var _custom: String = "._"
 
 		init(rawValue: Int) {
 			self.rawValue = rawValue
