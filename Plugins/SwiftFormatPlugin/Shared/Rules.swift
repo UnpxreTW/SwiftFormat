@@ -132,8 +132,8 @@ extension Rule {
 		}
 
 		init(rawValue: Int, with custom: String) {
-			self._custom = custom
 			self.init(rawValue: rawValue)
+            self._custom = custom
 		}
 	}
 }
