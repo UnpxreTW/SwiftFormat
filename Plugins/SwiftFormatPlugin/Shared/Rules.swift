@@ -55,6 +55,8 @@ extension Rule {
 				continue
 			}
 			switch option {
+			case let option as Option:
+				command.append(contentsOf: ["--\(label)", String(describing: option)])
 			case let option as String:
 				if let label, !label.isEmpty, label.first != "." {
 					command.append(contentsOf: ["--\(label)", option])
