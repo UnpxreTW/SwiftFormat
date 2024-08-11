@@ -139,6 +139,13 @@ extension Rule {
 	}
 }
 
+extension Rule.Option: CustomReflectable {
+
+	var customMirror: Mirror {
+		Mirror(self, unlabeledChildren: [self], displayStyle: .class)
+	}
+}
+
 extension Rule.Option: CustomStringConvertible {
 
 	var description: String {
