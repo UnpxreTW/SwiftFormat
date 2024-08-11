@@ -49,7 +49,7 @@ extension FormatRule {
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
 			if let ruleFlag = option as? RuleFlag {
 				command.append(contentsOf: ["--\(ruleFlag)", name])
-				guard ruleFlag.isEnable else {
+				guard case .enable = ruleFlag else {
 					print("規則 \(name) 未啟用")
 					break
 				}
