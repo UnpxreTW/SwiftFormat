@@ -6,9 +6,7 @@
 //
 
 /// 格式規則
-///
-/// - Important: 當附帶的參數只有 ```Rule.Option``` 時應該提供參數名稱使反射時正常解析
-enum Rule {
+enum FormatRule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
 	case acronyms(Option, String)
@@ -35,7 +33,7 @@ enum Rule {
 	case blankLinesAroundMark(set: Option, lineaftermarks: Option)
 }
 
-extension Rule {
+extension FormatRule {
 
 	/// 取得當前規則的規則名稱與附帶的設定值
 	///
@@ -70,10 +68,10 @@ extension Rule {
 	}
 }
 
-extension Rule {
+extension FormatRule {
 
 	// 所有使用中的規則與其設定值
-	static let allRules: [Rule] = [
+	static let allRules: [Self] = [
 
 		  // 與預設相同選擇 "ID,URL,UUID"
 		.acronyms(.ruleEnable, "ID,URL,UUID")
@@ -104,7 +102,7 @@ extension Rule {
 	static var allToCommand: [String] { Self.allRules.map { $0.command }.flatMap { $0 } }
 }
 
-extension Rule {
+extension FormatRule {
 
 	/// 用於描述啟用與否的旗標，其包含是否啟用、用途與轉換格式
 	///
@@ -142,7 +140,7 @@ extension Rule {
 	}
 }
 
-extension Rule.Option: CustomStringConvertible {
+extension FormatRule.Option: CustomStringConvertible {
 
 	var description: String {
 		if self.contains(.isRuleFlag) {
