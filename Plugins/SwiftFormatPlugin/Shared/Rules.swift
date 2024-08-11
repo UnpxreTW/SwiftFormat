@@ -105,7 +105,7 @@ extension Rule {
 
 extension Rule {
 
-	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
+	/// 用於描述啟用與否的旗標，其包含是否啟用、用途與轉換格式
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
 	struct Option: OptionSet {
