@@ -21,16 +21,16 @@ enum Rule {
 	case applicationMain(preferMain: Option)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(Option)
+	case assertionFailures(is: Option)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(Option)
+	case blankLineAfterImports(is: Option)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(Option)
+	case blankLineAfterSwitchCase(is: Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(Option)
+	case blankLinesAroundMark(is: Option)
 }
 
 extension Rule {
@@ -87,16 +87,16 @@ extension Rule {
 		.applicationMain(preferMain: .ruleEnable)
 
 		, // 啟用
-		.assertionFailures(.ruleEnable)
+		.assertionFailures(is: .ruleEnable)
 
 		, // 啟用
-		.blankLineAfterImports(.ruleEnable)
+		.blankLineAfterImports(is: .ruleEnable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(.ruleEnable)
+		.blankLineAfterSwitchCase(is: .ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(.ruleEnable)
+		.blankLinesAroundMark(is: .ruleEnable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -108,7 +108,7 @@ extension Rule {
 	///  ```Rule``` 中的規則第一個參數必須為 ```Rule.EnableFlag``` 型態，用於決定規則是否啟用
 	///
 	/// - Important: 當參數列表包含此型態的參數且為不啟用時會直接關閉對應的規則
-	class Option: OptionSet {
+	struct Option: OptionSet {
 
 		static let disable: Option = .init(rawValue: 0)
 
@@ -125,16 +125,15 @@ extension Rule {
 
 		var rawValue: Int
 
-		private var _custom: String = "._"
+		private var _custom: String = ""
 
-        required init(rawValue: Int) {
+		init(rawValue: Int) {
 			self.rawValue = rawValue
-			self._custom = ""
 		}
 
-        convenience init(rawValue: Int, with custom: String) {
-			self.init(rawValue: rawValue)
+		init(rawValue: Int, with custom: String) {
 			self._custom = custom
+			self.init(rawValue: rawValue)
 		}
 	}
 }
