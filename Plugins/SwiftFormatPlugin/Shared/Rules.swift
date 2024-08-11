@@ -9,7 +9,7 @@
 enum FormatRule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(Option, String)
+	case acronyms(rule: RuleFlag, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
 	case andOperator(preferComma: Option)
@@ -47,6 +47,14 @@ extension FormatRule {
 	private var command: [String] {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
+			if let ruleFlag = option as? RuleFlag {
+				command.append(contentsOf: ["--\(ruleFlag)", name])
+				guard ruleFlag.isEnable else {
+					print("規則 \(name) 未啟用")
+					break
+				}
+				continue
+			}
 			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
 				command.append(contentsOf: ["--\(ruleEnable)", name])
 				guard ruleEnable.contains(.enable) else { break }
@@ -74,7 +82,7 @@ extension FormatRule {
 	static let allRules: [Self] = [
 
 		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms(.ruleEnable, "ID,URL,UUID")
+		.acronyms(rule: .enable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
 		.andOperator(preferComma: .ruleEnable)
