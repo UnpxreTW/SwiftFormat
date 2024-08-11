@@ -32,7 +32,7 @@ enum Rule {
 	case blankLineAfterSwitchCase(set: Option)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(set: Option)
+	case blankLinesAroundMark(set: Option, lineaftermarks: Option)
 }
 
 extension Rule {
@@ -54,15 +54,16 @@ extension Rule {
 				guard ruleEnable.contains(.enable) else { break }
 				continue
 			}
-			switch option {
-			case let option as String:
-				if let label, !label.isEmpty, label.first != "." {
-					command.append(contentsOf: ["--\(label)", option])
-				} else {
-					// !!!: 如未指定參數標籤時標籤會為 "." 開頭的參數偏移數字，此時需要以規則名稱開頭
-					command.append(contentsOf: ["--\(name)", option])
-				}
-			default: break
+			let option: String = switch option {
+			case let option as Option: String(describing: option)
+			case let option as String: option
+			default: ""
+			}
+			if let label, !label.isEmpty, label.first != "." {
+				command.append(contentsOf: ["--\(label)", option])
+			} else {
+				// !!!: 如未指定參數標籤時標籤會為 "." 開頭的參數偏移數字，此時需要以規則名稱開頭
+				command.append(contentsOf: ["--\(name)", option])
 			}
 		}
 		return command
@@ -96,7 +97,7 @@ extension Rule {
 		.blankLineAfterSwitchCase(set: .ruleEnable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(set: .ruleEnable)
+		.blankLinesAroundMark(set: .ruleEnable, lineaftermarks: [.enable, .convertToTrueOrFlase])
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -116,6 +117,9 @@ extension Rule {
 
 		/// 標示其為標記規則的啟用與否
 		static let isRuleFlag: Option = .init(rawValue: 1 << 1)
+
+		/// 轉換為 "true" 或 "false" 字串
+		static let convertToTrueOrFlase: Self = .init(rawValue: 1 << 2)
 
 		/// 用於規則的啟用
 		static let ruleEnable: Option = [.isRuleFlag, .enable]
@@ -143,6 +147,8 @@ extension Rule.Option: CustomStringConvertible {
 	var description: String {
 		if self.contains(.isRuleFlag) {
 			self.contains(.enable) ? "enable" : "disable"
+		} else if self.contains(.convertToTrueOrFlase) {
+			self.contains(.enable) ? "true" : "false"
 		} else {
 			""
 		}
