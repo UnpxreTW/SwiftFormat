@@ -48,7 +48,7 @@ extension Rule {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
 			dump(option)
-			print("\(label), \(option)")
+			print("\(label), \(option)\n")
 			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
 				command.append(contentsOf: ["--\(ruleEnable)", name])
 				guard ruleEnable.contains(.enable) else { break }
@@ -142,9 +142,10 @@ extension Rule {
 extension Rule.Option: CustomStringConvertible {
 
 	var description: String {
-		switch self {
-		case .isRuleFlag: self.contains(.enable) ? "enable" : "disable"
-		default: ""
+		if self.contains(.isRuleFlag) {
+			self.contains(.enable) ? "enable" : "disable"
+		} else {
+			""
 		}
 	}
 }
