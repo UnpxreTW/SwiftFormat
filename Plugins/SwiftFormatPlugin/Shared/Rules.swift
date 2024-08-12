@@ -55,11 +55,6 @@ extension FormatRule {
 				}
 				continue
 			}
-			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
-				command.append(contentsOf: ["--\(ruleEnable)", name])
-				guard ruleEnable.contains(.enable) else { break }
-				continue
-			}
 			let option: String = switch option {
 			case let option as Option: String(describing: option)
 			case let option as String: option
@@ -121,17 +116,8 @@ extension FormatRule {
 
 		static let enable: Option = .init(rawValue: 1)
 
-		/// 標示其為標記規則的啟用與否
-		static let isRuleFlag: Option = .init(rawValue: 1 << 1)
-
 		/// 轉換為 "true" 或 "false" 字串
 		static let convertToTrueOrFlase: Self = .init(rawValue: 1 << 2)
-
-		/// 用於規則的啟用
-		static let ruleEnable: Option = [.isRuleFlag, .enable]
-
-		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		static let ruleDisable: Option = [.isRuleFlag, .disable]
 
 		var rawValue: Int
 
@@ -151,9 +137,7 @@ extension FormatRule {
 extension FormatRule.Option: CustomStringConvertible {
 
 	var description: String {
-		if self.contains(.isRuleFlag) {
-			self.contains(.enable) ? "enable" : "disable"
-		} else if self.contains(.convertToTrueOrFlase) {
+		if self.contains(.convertToTrueOrFlase) {
 			self.contains(.enable) ? "true" : "false"
 		} else {
 			""
