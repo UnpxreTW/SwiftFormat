@@ -9,8 +9,8 @@
 enum RuleFlag: String {
 
 	/// 規則啟用
-    case enable
+	case enable
 
 	/// 規則不啟用
-    case disable
+	case disable
 }
