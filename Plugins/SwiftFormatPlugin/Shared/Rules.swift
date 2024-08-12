@@ -21,16 +21,16 @@ enum FormatRule {
 	case applicationMain(preferMain: RuleFlag)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(set: RuleFlag)
+	case assertionFailures(rule: RuleFlag)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(set: RuleFlag)
+	case blankLineAfterImports(rule: RuleFlag)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(set: RuleFlag)
+	case blankLineAfterSwitchCase(rule: RuleFlag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(set: RuleFlag, lineaftermarks: Option)
+	case blankLinesAroundMark(rule: RuleFlag, lineaftermarks: Option)
 }
 
 extension FormatRule {
@@ -94,16 +94,16 @@ extension FormatRule {
 		.applicationMain(preferMain: .enable)
 
 		, // 啟用
-		.assertionFailures(set: .enable)
+		.assertionFailures(rule: .enable)
 
 		, // 啟用
-		.blankLineAfterImports(set: .enable)
+		.blankLineAfterImports(rule: .enable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(set: .disable)
+		.blankLineAfterSwitchCase(rule: .disable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(set: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
+		.blankLinesAroundMark(rule: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
 	]
 
 	/// 將設定的規則轉換為命令行指令
