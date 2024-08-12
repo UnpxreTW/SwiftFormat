@@ -31,6 +31,9 @@ enum FormatRule {
 
 	/// 在 `MARK` 註解周圍加上空白行
 	case blankLinesAroundMark(rule: RuleFlag, lineaftermarks: Option)
+
+	/// 移除方法中尾端的空白行
+	case blankLinesAtEndOfScope(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -99,6 +102,9 @@ extension FormatRule {
 
 		, // 在 MARK 註解周圍加上空白行
 		.blankLinesAroundMark(rule: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
+
+		, // 移除方法中尾端的空白行
+		.blankLinesAtEndOfScope(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
