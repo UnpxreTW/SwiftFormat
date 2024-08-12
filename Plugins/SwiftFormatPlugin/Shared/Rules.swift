@@ -9,28 +9,28 @@
 enum FormatRule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(Option, String)
+	case acronyms(rule: RuleFlag, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: Option)
+	case andOperator(preferComma: RuleFlag)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: Option)
+	case anyObjectProtocol(preferAnyObject: RuleFlag)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: Option)
+	case applicationMain(preferMain: RuleFlag)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(set: Option)
+	case assertionFailures(rule: RuleFlag)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(set: Option)
+	case blankLineAfterImports(rule: RuleFlag)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(set: Option)
+	case blankLineAfterSwitchCase(rule: RuleFlag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(set: Option, lineaftermarks: Option)
+	case blankLinesAroundMark(rule: RuleFlag, lineaftermarks: Option)
 }
 
 extension FormatRule {
@@ -47,9 +47,12 @@ extension FormatRule {
 	private var command: [String] {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
-			if let ruleEnable = option as? Option, ruleEnable.contains(.isRuleFlag) {
-				command.append(contentsOf: ["--\(ruleEnable)", name])
-				guard ruleEnable.contains(.enable) else { break }
+			if let ruleFlag = option as? RuleFlag {
+				command.append(contentsOf: ["--\(ruleFlag)", name])
+				guard case .enable = ruleFlag else {
+					print("規則 \(name) 未啟用")
+					break
+				}
 				continue
 			}
 			let option: String = switch option {
@@ -74,28 +77,28 @@ extension FormatRule {
 	static let allRules: [Self] = [
 
 		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms(.ruleEnable, "ID,URL,UUID")
+		.acronyms(rule: .enable, "ID,URL,UUID")
 
 		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: .ruleEnable)
+		.andOperator(preferComma: .enable)
 
 		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: .ruleEnable)
+		.anyObjectProtocol(preferAnyObject: .enable)
 
 		, // 偏好使用 `@main`
-		.applicationMain(preferMain: .ruleEnable)
+		.applicationMain(preferMain: .enable)
 
 		, // 啟用
-		.assertionFailures(set: .ruleEnable)
+		.assertionFailures(rule: .enable)
 
 		, // 啟用
-		.blankLineAfterImports(set: .ruleEnable)
+		.blankLineAfterImports(rule: .enable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(set: .ruleDisable)
+		.blankLineAfterSwitchCase(rule: .disable)
 
 		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(set: .ruleEnable, lineaftermarks: [.enable, .convertToTrueOrFlase])
+		.blankLinesAroundMark(rule: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
 	]
 
 	/// 將設定的規則轉換為命令行指令
@@ -113,17 +116,8 @@ extension FormatRule {
 
 		static let enable: Option = .init(rawValue: 1)
 
-		/// 標示其為標記規則的啟用與否
-		static let isRuleFlag: Option = .init(rawValue: 1 << 1)
-
 		/// 轉換為 "true" 或 "false" 字串
 		static let convertToTrueOrFlase: Self = .init(rawValue: 1 << 2)
-
-		/// 用於規則的啟用
-		static let ruleEnable: Option = [.isRuleFlag, .enable]
-
-		/// 當規則不啟用時，第一個參數後停止解析後續可選參數
-		static let ruleDisable: Option = [.isRuleFlag, .disable]
 
 		var rawValue: Int
 
@@ -143,9 +137,7 @@ extension FormatRule {
 extension FormatRule.Option: CustomStringConvertible {
 
 	var description: String {
-		if self.contains(.isRuleFlag) {
-			self.contains(.enable) ? "enable" : "disable"
-		} else if self.contains(.convertToTrueOrFlase) {
+		if self.contains(.convertToTrueOrFlase) {
 			self.contains(.enable) ? "true" : "false"
 		} else {
 			""
