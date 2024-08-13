@@ -42,6 +42,9 @@ enum FormatRule {
 
 	/// 移除鏈狀函數連結間的空白行（但保留換行符號）
 	case blankLinesBetweenChainedFunctions(rule: RuleFlag)
+
+	/// 移除 `import` 引用間的空白行
+	case blankLinesBetweenImports(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -119,6 +122,9 @@ extension FormatRule {
 
 		, // 移除鏈式函數間的空白行
 		.blankLinesBetweenChainedFunctions(rule: .enable)
+
+		, // 不移除 `import` 聲明間的空白行
+		.blankLinesBetweenImports(rule: .disable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
