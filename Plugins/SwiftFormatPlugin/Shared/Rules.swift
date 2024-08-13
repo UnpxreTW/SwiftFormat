@@ -45,6 +45,9 @@ enum FormatRule {
 
 	/// 移除 `import` 引用間的空白行
 	case blankLinesBetweenImports(rule: RuleFlag)
+
+	/// 在類、結構、枚舉、擴展、協定或函數宣告間插入空白行
+	case blankLinesBetweenScopes(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -125,6 +128,9 @@ extension FormatRule {
 
 		, // 不移除 `import` 聲明間的空白行
 		.blankLinesBetweenImports(rule: .disable)
+
+		, // 在宣告空間間插入空白行
+		.blankLinesBetweenScopes(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
