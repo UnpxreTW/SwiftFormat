@@ -39,6 +39,9 @@ enum FormatRule {
 	///
 	/// 可選選項 `typeblanklines` 用於對於型別宣告開頭可以使用 `remove`（移除）或是`preserve`（保留）
 	case blankLinesAtStartOfScope(rule: RuleFlag, typeblanklines: String)
+
+	/// 移除鏈狀函數連結間的空白行（但保留換行符號）
+	case blankLinesBetweenChainedFunctions(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -113,6 +116,9 @@ extension FormatRule {
 
 		, // 移除區塊區間開頭的空白行（但是保留類型宣告的開頭空白行）
 		.blankLinesAtStartOfScope(rule: .enable, typeblanklines: "preserve")
+
+		, // 移除鏈式函數間的空白行
+		.blankLinesBetweenChainedFunctions(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
