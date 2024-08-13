@@ -48,6 +48,9 @@ enum FormatRule {
 
 	/// 在類、結構、枚舉、擴展、協定或函數宣告間插入空白行
 	case blankLinesBetweenScopes(rule: RuleFlag)
+
+	/// 將多行註解區塊轉換為連續的單行註解
+	case blockComments(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -131,6 +134,9 @@ extension FormatRule {
 
 		, // 在宣告空間間插入空白行
 		.blankLinesBetweenScopes(rule: .enable)
+
+		, // 轉換多行註解區塊為連續的單行註解（包含文件註解）
+		.blockComments(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
