@@ -54,6 +54,12 @@ enum FormatRule {
 
 	/// 是否使用 Allman 樣式的大括弧
 	case braces(rule: RuleFlag, allman: Bool)
+
+	/// 使用 `if/switch` 簡化賦值
+	///
+	/// 可選參數
+	/// - condassignment: `after-property` 只在變數宣告後進行簡化（預設值）、`always` 總是簡化
+	case conditionalAssignment(rule: RuleFlag, condassignment: String)
 }
 
 extension FormatRule {
@@ -144,6 +150,9 @@ extension FormatRule {
 
 		, // 大括弧開頭不使用 allman 縮排樣式
 		.braces(rule: .enable, allman: false)
+
+		, // 總是使用 `if/switch` 簡化賦值
+		.conditionalAssignment(rule: .enable, condassignment: "always")
 	]
 
 	/// 將設定的規則轉換為命令行指令
