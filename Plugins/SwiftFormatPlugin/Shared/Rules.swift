@@ -51,6 +51,9 @@ enum FormatRule {
 
 	/// 將多行註解區塊轉換為連續的單行註解
 	case blockComments(rule: RuleFlag)
+
+	/// 是否使用 Allman 樣式的大括弧
+	case braces(rule: RuleFlag, allman: Bool)
 }
 
 extension FormatRule {
@@ -77,6 +80,7 @@ extension FormatRule {
 			}
 			let option: String = switch option {
 			case let option as Option: String(describing: option)
+			case let option as Bool: option ? "true" : "false"
 			case let option as String: option
 			default: ""
 			}
@@ -137,6 +141,9 @@ extension FormatRule {
 
 		, // 轉換多行註解區塊為連續的單行註解（包含文件註解）
 		.blockComments(rule: .enable)
+
+		, // 大括弧開頭不使用 allman 縮排樣式
+		.braces(rule: .enable, allman: false)
 	]
 
 	/// 將設定的規則轉換為命令行指令
