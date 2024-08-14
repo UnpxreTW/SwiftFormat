@@ -142,8 +142,8 @@ extension FormatRule {
 		, // 轉換多行註解區塊為連續的單行註解（包含文件註解）
 		.blockComments(rule: .enable)
 
-		, // 大括弧開頭使用 allman 縮排樣式
-		.braces(rule: .enable, allman: true)
+		, // 大括弧開頭不使用 allman 縮排樣式
+		.braces(rule: .enable, allman: false)
 	]
 
 	/// 將設定的規則轉換為命令行指令
