@@ -63,6 +63,9 @@ enum FormatRule {
 
 	/// 將連續的空白行替換為單個空白行
 	case consecutiveBlankLines(rule: RuleFlag)
+
+	/// 將連續的空白替換為單個空白
+	case consecutiveSpaces(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -159,6 +162,9 @@ extension FormatRule {
 
 		, // 限制空白行最多只有一行
 		.consecutiveBlankLines(rule: .enable)
+
+		, // 限制空白最多只有一個
+		.consecutiveSpaces(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
