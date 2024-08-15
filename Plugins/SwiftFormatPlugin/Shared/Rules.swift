@@ -66,6 +66,9 @@ enum FormatRule {
 
 	/// 將連續的空白替換為單個空白
 	case consecutiveSpaces(rule: RuleFlag)
+
+	/// 保持 `switch` 中每個 `case` 的間隔一致
+	case consistentSwitchCaseSpacing(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -165,6 +168,9 @@ extension FormatRule {
 
 		, // 限制空白最多只有一個
 		.consecutiveSpaces(rule: .enable)
+
+		, // 保持 `switch-case` 間隔一致
+		.consistentSwitchCaseSpacing(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
