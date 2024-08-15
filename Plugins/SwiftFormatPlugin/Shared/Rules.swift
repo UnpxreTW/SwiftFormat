@@ -57,7 +57,7 @@ enum FormatRule {
 
 	/// 使用 `if/switch` 簡化賦值
 	///
-	/// 可選參數
+	/// 可選參數：
 	/// - condassignment: `after-property` 只在變數宣告後進行簡化（預設值）、`always` 總是簡化
 	case conditionalAssignment(rule: RuleFlag, condassignment: String)
 
