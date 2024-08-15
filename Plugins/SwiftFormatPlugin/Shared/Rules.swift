@@ -59,7 +59,7 @@ enum FormatRule {
 	///
 	/// 可選參數：
 	/// - condassignment: `after-property` 只在變數宣告後進行簡化（預設值）、`always` 總是簡化
-	case conditionalAssignment(rule: RuleFlag, condassignment: String)
+	case conditionalAssignment(rule: RuleFlag, condassignment: String = "after-property")
 
 	/// 將連續的空白行替換為單個空白行
 	case consecutiveBlankLines(rule: RuleFlag)
