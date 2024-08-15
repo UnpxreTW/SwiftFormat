@@ -85,6 +85,12 @@ enum FormatRule {
 	/// - elseposition: `else` 與 `catch` 放置位置；`same-line` 與前一個大括弧同行（預設值）、`next-line` 下一行
 	/// - guardelse: `guard-else` 放置位置；`same-line` 同一行、`next-line` 下一行、`auto` 自動（預設值）
 	case elseOnSameLine(rule: RuleFlag, elseposition: String = "same-line", guardelse: String = "auto")
+
+	/// 移除空的大括弧組內部的內容
+	///
+	/// 可選選項
+	/// - emptybraces: `no-space` 無空格（預設值）、`spaced` 單個空格、`linebreak` 換行符號
+	case emptyBraces(rule: RuleFlag, emptybraces: String = "no-space")
 }
 
 extension FormatRule {
@@ -196,6 +202,9 @@ extension FormatRule {
 
 		, // 都放置於同一行
 		.elseOnSameLine(rule: .enable, guardelse: "same-line")
+
+		, // 清除空的大括弧中的內容
+		.emptyBraces(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
