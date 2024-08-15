@@ -75,6 +75,9 @@ enum FormatRule {
 	/// 可選參數：
 	/// - doccomments: `before-declarations` 只在宣告前使用（預設值）、`always` 總是使用
 	case docComments(rule: RuleFlag, doccomments: String = "before-declarations")
+
+	/// 移除重複的 `import` 宣告
+	case duplicateImports(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -180,6 +183,9 @@ extension FormatRule {
 
 		, // 宣告前總是使用文件風格註解，而程式碼中總是使用一般註解
 		.docComments(rule: .enable)
+
+		, // 移除重複的 `import` 宣告
+		.duplicateImports(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
