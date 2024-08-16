@@ -103,6 +103,14 @@ enum FormatRule {
 	/// 可選選項：
 	/// extensionacl: `on-extension` 放置於 extension 宣告前（預設值）、`on-declarations` 放置於成員宣告前
 	case extensionAccessControl(rule: RuleFlag, extensionacl: String = "on-extension")
+
+	/// 設定檔案標頭
+	///
+	/// 可選選項：
+	/// header: 可使用 `strip`、`ignore` 或是要設定的檔案標頭文字
+	/// dateformat: 日期格式
+	/// timezone: 時區
+	case fileHeader(rule: RuleFlag, header: String = "", dateformat: String = "system", timezone: String = "system")
 }
 
 extension FormatRule {
@@ -223,6 +231,16 @@ extension FormatRule {
 
 		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
 		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
+
+		, // 設定檔案標頭
+		.fileHeader(rule: .enable, header: """
+		//
+		//  {file}
+		//
+		//
+		//  Copyright © 2023 Skywind. All rights reserved.
+		//
+		""")
 	]
 
 	/// 將設定的規則轉換為命令行指令
