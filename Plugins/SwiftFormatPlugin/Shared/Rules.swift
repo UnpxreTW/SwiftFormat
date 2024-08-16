@@ -91,6 +91,12 @@ enum FormatRule {
 	/// 可選選項
 	/// - emptybraces: `no-space` 無空格（預設值）、`spaced` 單個空格、`linebreak` 換行符號
 	case emptyBraces(rule: RuleFlag, emptybraces: String = "no-space")
+
+	/// 將只有 `static` 修飾成員的類別或是結構轉換為 `enum` 作為命名空間
+	///
+	/// 可選選項：
+	/// - enumnamespaces: `always` 總是轉換（預設）、`structs-only` 只對結構進行轉換
+	case enumNamespaces(rule: RuleFlag, enumnamespaces: String = "always")
 }
 
 extension FormatRule {
@@ -205,6 +211,9 @@ extension FormatRule {
 
 		, // 清除空的大括弧中的內容
 		.emptyBraces(rule: .enable)
+
+		, // 不自動轉換為 `enum`
+		.enumNamespaces(rule: .disable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
