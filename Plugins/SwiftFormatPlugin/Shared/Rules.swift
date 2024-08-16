@@ -97,6 +97,12 @@ enum FormatRule {
 	/// 可選選項：
 	/// - enumnamespaces: `always` 總是轉換（預設）、`structs-only` 只對結構進行轉換
 	case enumNamespaces(rule: RuleFlag, enumnamespaces: String = "always")
+
+	/// 設定 `extension` 的訪問控制關鍵字放置於 `extension` 前或是其內部宣告成員宣告前
+	///
+	/// 可選選項：
+	/// extensionacl: `on-extension` 放置於 extension 宣告前（預設值）、`on-declarations` 放置於成員宣告前
+	case extensionAccessControl(rule: RuleFlag, extensionacl: String = "on-extension")
 }
 
 extension FormatRule {
@@ -214,6 +220,9 @@ extension FormatRule {
 
 		, // 不自動轉換為 `enum`
 		.enumNamespaces(rule: .disable)
+
+		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
+		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
 	]
 
 	/// 將設定的規則轉換為命令行指令
