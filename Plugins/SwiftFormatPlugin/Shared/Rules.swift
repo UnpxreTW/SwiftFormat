@@ -231,16 +231,6 @@ extension FormatRule {
 
 		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
 		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
-
-		, // 設定檔案標頭
-		.fileHeader(rule: .enable, header: """
-		//
-		//  {file}
-		//
-		//
-		//  Copyright © 2023 Skywind. All rights reserved.
-		//
-		""")
 	]
 
 	/// 將設定的規則轉換為命令行指令
