@@ -111,6 +111,9 @@ enum FormatRule {
 	/// dateformat: 日期格式
 	/// timezone: 時區
 	case fileHeader(rule: RuleFlag, header: String = "", dateformat: String = "system", timezone: String = "system")
+
+	/// 在 `extension` 上偏好使用 `<>` 約束取代 `where` 型態約束
+	case genericExtensions(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -231,6 +234,9 @@ extension FormatRule {
 
 		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
 		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
+
+		, // 偏好使用 `<>` 取代 `where` 約束
+		.genericExtensions(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
