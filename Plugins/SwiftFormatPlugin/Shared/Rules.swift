@@ -117,6 +117,9 @@ enum FormatRule {
 
 	/// 確保檔案標頭中的檔案名稱與實際檔案名稱相同
 	case headerFileName(rule: RuleFlag)
+
+	/// 將 `await` 關鍵字移動到表達式的開頭
+	case hoistAwait(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -243,6 +246,9 @@ extension FormatRule {
 
 		, // 檢查標頭檔案名稱
 		.headerFileName(rule: .enable)
+
+		, // 將 `await` 移動到表達式的開頭
+		.hoistAwait(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
