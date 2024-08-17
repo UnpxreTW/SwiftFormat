@@ -123,6 +123,9 @@ enum FormatRule {
 
 	/// 將表達式間的 `let` 與 `var` 提取到表達式開頭
 	case hoistPatternLet(rule: RuleFlag)
+
+	/// 將表達式間的 `try` 提取到表達式開頭
+	case hoistTry(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -255,6 +258,9 @@ extension FormatRule {
 
 		, // 將表達式中的 `var` 與 `let` 提取到表達式開頭
 		.hoistPatternLet(rule: .enable)
+
+		, // 將表達式中的 `try` 提取到表達式開頭
+		.hoistTry(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
