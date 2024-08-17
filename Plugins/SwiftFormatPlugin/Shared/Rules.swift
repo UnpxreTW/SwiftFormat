@@ -120,6 +120,9 @@ enum FormatRule {
 
 	/// 將 `await` 關鍵字移動到表達式的開頭
 	case hoistAwait(rule: RuleFlag)
+
+	/// 將表達式間的 `let` 與 `var` 提取到表達式開頭
+	case hoistPatternLet(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -249,6 +252,9 @@ extension FormatRule {
 
 		, // 將 `await` 移動到表達式的開頭
 		.hoistAwait(rule: .enable)
+
+		, // 將表達式中的 `var` 與 `let` 提取到表達式開頭
+		.hoistPatternLet(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
