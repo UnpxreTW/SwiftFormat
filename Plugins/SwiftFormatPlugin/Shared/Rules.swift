@@ -114,6 +114,9 @@ enum FormatRule {
 
 	/// 在 `extension` 上偏好使用 `<>` 約束取代 `where` 型態約束
 	case genericExtensions(rule: RuleFlag)
+
+	/// 確保檔案標頭中的檔案名稱與實際檔案名稱相同
+	case headerFileName(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -237,6 +240,9 @@ extension FormatRule {
 
 		, // 偏好使用 `<>` 取代 `where` 約束
 		.genericExtensions(rule: .enable)
+
+		, // 檢查標頭檔案名稱
+		.headerFileName(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
