@@ -145,6 +145,9 @@ enum FormatRule {
 		xcodeindentation: String = "disabled",
 		indentstrings: Bool = false
 	)
+
+	/// 當 `init(coder:)` 內容沒有任何實現時加上不可用標籤
+	case initCoderUnavailable(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -283,6 +286,9 @@ extension FormatRule {
 
 		, // 縮進設定使用製表符其餘設定為預設值
 		.indent(rule: .enable, indent: "tab")
+
+		, // 啟用
+		.initCoderUnavailable(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
