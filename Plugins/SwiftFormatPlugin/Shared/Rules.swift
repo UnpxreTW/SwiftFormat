@@ -126,6 +126,25 @@ enum FormatRule {
 
 	/// 將表達式間的 `try` 提取到表達式開頭
 	case hoistTry(rule: RuleFlag)
+
+	/// 縮進控制
+	///
+	/// 可選選項：
+	/// - indent: 縮進空格數量或是使用 "tab" 使用製表符
+	/// - tabwidth: 製表符寬度，預設為 `unspecified` 未指定
+	/// - indentcase: `switch-case` 內 `case` 是否縮進，預設不縮進
+	/// - ifdef: 在 `#if` 中是否縮進
+	/// - xcodeindentation: 符合 Xcode 縮進設定
+	/// - indentstrings: 多行字串縮進
+	case indent(
+		rule: RuleFlag,
+		indent: String,
+		tabwidth: String = "unspecified",
+		indentcase: Bool = false,
+		ifdef: String = "indent",
+		xcodeindentation: String = "disabled",
+		indentstrings: Bool = false
+	)
 }
 
 extension FormatRule {
@@ -261,6 +280,9 @@ extension FormatRule {
 
 		, // 將表達式中的 `try` 提取到表達式開頭
 		.hoistTry(rule: .enable)
+
+		, // 縮進設定使用製表符其餘設定為預設值
+		.indent(rule: .enable, indent: "tab")
 	]
 
 	/// 將設定的規則轉換為命令行指令
