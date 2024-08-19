@@ -157,6 +157,9 @@ enum FormatRule {
 
 	/// 在檔案尾端加入空白行
 	case linebreakAtEndOfFile(rule: RuleFlag)
+
+	/// 檔案使用的換行符號
+	case linebreaks(rule: RuleFlag, linebreaks: String = "lf")
 }
 
 extension FormatRule {
@@ -307,6 +310,9 @@ extension FormatRule {
 
 		, // 啟用
 		.linebreakAtEndOfFile(rule: .enable)
+
+		, // 使用預設的換行符號
+		.linebreaks(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
