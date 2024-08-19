@@ -170,6 +170,9 @@ enum FormatRule {
 		extensionmark: String = "MARK: - %t + %c",
 		groupedextension: String = "MARK: %c"
 	)
+
+	/// 修飾詞排序
+	case modifierOrder(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -326,6 +329,9 @@ extension FormatRule {
 
 		, // 只啟用部分功能
 		.markTypes(rule: .enable, marktypes: "never")
+
+		, // 修飾詞排序按照預設設定
+		.modifierOrder(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
