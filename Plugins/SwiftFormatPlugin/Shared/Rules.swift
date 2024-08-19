@@ -160,6 +160,16 @@ enum FormatRule {
 
 	/// 檔案使用的換行符號
 	case linebreaks(rule: RuleFlag, linebreaks: String = "lf")
+
+	/// 在類型宣告或是 `extension` 外部加上 `MARK` 標記
+	case markTypes(
+		rule: RuleFlag,
+		marktypes: String = "always",
+		typemark: String = "MARK: - %t",
+		markextensions: String = "always",
+		extensionmark: String = "MARK: - %t + %c"
+		groupedextension: String = "MARK: %c"
+	)
 }
 
 extension FormatRule {
@@ -313,6 +323,9 @@ extension FormatRule {
 
 		, // 使用預設的換行符號
 		.linebreaks(rule: .enable)
+
+		, // 只啟用部分功能
+		.markTypes(rule: .enable, marktypes: "never")
 	]
 
 	/// 將設定的規則轉換為命令行指令
