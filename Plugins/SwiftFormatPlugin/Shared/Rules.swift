@@ -167,7 +167,7 @@ enum FormatRule {
 		marktypes: String = "always",
 		typemark: String = "MARK: - %t",
 		markextensions: String = "always",
-		extensionmark: String = "MARK: - %t + %c"
+		extensionmark: String = "MARK: - %t + %c",
 		groupedextension: String = "MARK: %c"
 	)
 }
