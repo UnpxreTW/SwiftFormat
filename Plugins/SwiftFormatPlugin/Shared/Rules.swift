@@ -173,6 +173,9 @@ enum FormatRule {
 
 	/// 修飾詞排序
 	case modifierOrder(rule: RuleFlag)
+
+	/// 不使用擁有權修飾服
+	case noExplicitOwnership(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -332,6 +335,9 @@ extension FormatRule {
 
 		, // 修飾詞排序按照預設設定
 		.modifierOrder(rule: .enable)
+
+		, // 不啟用此規則
+		.noExplicitOwnership(rule: .disable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
