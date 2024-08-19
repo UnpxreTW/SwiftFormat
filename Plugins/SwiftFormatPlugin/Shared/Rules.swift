@@ -154,6 +154,9 @@ enum FormatRule {
 
 	/// 將前導逗號移動到分行符號前
 	case leadingDelimiters(rule: RuleFlag)
+
+	/// 在檔案尾端加入空白行
+	case linebreakAtEndOfFile(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -301,6 +304,9 @@ extension FormatRule {
 
 		, // 可在依據上下文自行決定
 		.leadingDelimiters(rule: .disable)
+
+		, // 啟用
+		.linebreakAtEndOfFile(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
