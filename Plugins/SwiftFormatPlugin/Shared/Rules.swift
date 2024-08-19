@@ -148,6 +148,9 @@ enum FormatRule {
 
 	/// 當 `init(coder:)` 內容沒有任何實現時加上不可用標籤
 	case initCoderUnavailable(rule: RuleFlag)
+
+	/// 使用 `.isEmpty` 取代 `.count == 0` 的表達式
+	case isEmpty(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -289,6 +292,9 @@ extension FormatRule {
 
 		, // 啟用
 		.initCoderUnavailable(rule: .enable)
+
+		, // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題所以不啟用
+		.isEmpty(rule: .disable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
