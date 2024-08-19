@@ -151,6 +151,9 @@ enum FormatRule {
 
 	/// 使用 `.isEmpty` 取代 `.count == 0` 的表達式
 	case isEmpty(rule: RuleFlag)
+
+	/// 將前導逗號移動到分行符號前
+	case leadingDelimiters(rule: RuleFlag)
 }
 
 extension FormatRule {
@@ -295,6 +298,9 @@ extension FormatRule {
 
 		, // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題所以不啟用
 		.isEmpty(rule: .disable)
+
+		, // 可在依據上下文自行決定
+		.leadingDelimiters(rule: .disable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
