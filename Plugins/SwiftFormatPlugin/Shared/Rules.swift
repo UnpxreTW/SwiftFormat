@@ -2,107 +2,107 @@
 //  Rules.swift
 //  SwiftFormatPlugin
 //
-//  Copyright © 2023 UnpxreTW. All rights reserved.
+//  Copyright © 2024 UnpxreTW. All rights reserved.
 //
 
 /// 格式規則
 enum FormatRule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(rule: RuleFlag, String)
+	case acronyms(rule: Flag, String)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
-	case andOperator(preferComma: RuleFlag)
+	case andOperator(preferComma: Flag)
 
 	/// 偏好在協議中中使用 `AnyObject` 取代 `class`
-	case anyObjectProtocol(preferAnyObject: RuleFlag)
+	case anyObjectProtocol(preferAnyObject: Flag)
 
 	/// 偏好使用 `@main` 取代舊的 `@UIApplicationMain` 與 `@NSApplicationMain`
-	case applicationMain(preferMain: RuleFlag)
+	case applicationMain(preferMain: Flag)
 
 	/// 偏好 `assertionFailure` 與 `preconditionFailure` 取代判斷為 `false` 的測試
-	case assertionFailures(rule: RuleFlag)
+	case assertionFailures(rule: Flag)
 
 	/// 在 `import` 區塊後加入空白行
-	case blankLineAfterImports(rule: RuleFlag)
+	case blankLineAfterImports(rule: Flag)
 
 	/// 在每個 `switch` 中的 `case` 間插入空白行
-	case blankLineAfterSwitchCase(rule: RuleFlag)
+	case blankLineAfterSwitchCase(rule: Flag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(rule: RuleFlag, lineaftermarks: Option)
+	case blankLinesAroundMark(rule: Flag, lineaftermarks: Option)
 
 	/// 移除區塊間尾端的空白行
-	case blankLinesAtEndOfScope(rule: RuleFlag)
+	case blankLinesAtEndOfScope(rule: Flag)
 
 	/// 移除區塊間開頭的空白行
 	///
 	/// 可選選項 `typeblanklines` 用於對於型別宣告開頭可以使用 `remove`（移除）或是`preserve`（保留）
-	case blankLinesAtStartOfScope(rule: RuleFlag, typeblanklines: String)
+	case blankLinesAtStartOfScope(rule: Flag, typeblanklines: String)
 
 	/// 移除鏈狀函數連結間的空白行（但保留換行符號）
-	case blankLinesBetweenChainedFunctions(rule: RuleFlag)
+	case blankLinesBetweenChainedFunctions(rule: Flag)
 
 	/// 移除 `import` 引用間的空白行
-	case blankLinesBetweenImports(rule: RuleFlag)
+	case blankLinesBetweenImports(rule: Flag)
 
 	/// 在類、結構、枚舉、擴展、協定或函數宣告間插入空白行
-	case blankLinesBetweenScopes(rule: RuleFlag)
+	case blankLinesBetweenScopes(rule: Flag)
 
 	/// 將多行註解區塊轉換為連續的單行註解
-	case blockComments(rule: RuleFlag)
+	case blockComments(rule: Flag)
 
 	/// 是否使用 Allman 樣式的大括弧
-	case braces(rule: RuleFlag, allman: Bool)
+	case braces(rule: Flag, allman: Bool)
 
 	/// 使用 `if/switch` 簡化賦值
 	///
 	/// 可選參數：
 	/// - condassignment: `after-property` 只在變數宣告後進行簡化（預設值）、`always` 總是簡化
-	case conditionalAssignment(rule: RuleFlag, condassignment: String = "after-property")
+	case conditionalAssignment(rule: Flag, condassignment: String = "after-property")
 
 	/// 將連續的空白行替換為單個空白行
-	case consecutiveBlankLines(rule: RuleFlag)
+	case consecutiveBlankLines(rule: Flag)
 
 	/// 將連續的空白替換為單個空白
-	case consecutiveSpaces(rule: RuleFlag)
+	case consecutiveSpaces(rule: Flag)
 
 	/// 保持 `switch` 中每個 `case` 的間隔一致
-	case consistentSwitchCaseSpacing(rule: RuleFlag)
+	case consistentSwitchCaseSpacing(rule: Flag)
 
 	/// 在宣告前使用文件註解風格
 	///
 	/// 可選參數：
 	/// - doccomments: `before-declarations` 只在宣告前使用（預設值）、`always` 總是使用
-	case docComments(rule: RuleFlag, doccomments: String = "before-declarations")
+	case docComments(rule: Flag, doccomments: String = "before-declarations")
 
 	/// 移除重複的 `import` 宣告
-	case duplicateImports(rule: RuleFlag)
+	case duplicateImports(rule: Flag)
 
 	/// 分別決定 `else`、`guard、`while`、`catch` 等關鍵字與前一個大括弧的相對位置
 	///
 	/// 可選參數：
 	/// - elseposition: `else` 與 `catch` 放置位置；`same-line` 與前一個大括弧同行（預設值）、`next-line` 下一行
 	/// - guardelse: `guard-else` 放置位置；`same-line` 同一行、`next-line` 下一行、`auto` 自動（預設值）
-	case elseOnSameLine(rule: RuleFlag, elseposition: String = "same-line", guardelse: String = "auto")
+	case elseOnSameLine(rule: Flag, elseposition: String = "same-line", guardelse: String = "auto")
 
 	/// 移除空的大括弧組內部的內容
 	///
 	/// 可選選項
 	/// - emptybraces: `no-space` 無空格（預設值）、`spaced` 單個空格、`linebreak` 換行符號
-	case emptyBraces(rule: RuleFlag, emptybraces: String = "no-space")
+	case emptyBraces(rule: Flag, emptybraces: String = "no-space")
 
 	/// 將只有 `static` 修飾成員的類別或是結構轉換為 `enum` 作為命名空間
 	///
 	/// 可選選項：
 	/// - enumnamespaces: `always` 總是轉換（預設）、`structs-only` 只對結構進行轉換
-	case enumNamespaces(rule: RuleFlag, enumnamespaces: String = "always")
+	case enumNamespaces(rule: Flag, enumnamespaces: String = "always")
 
 	/// 設定 `extension` 的訪問控制關鍵字放置於 `extension` 前或是其內部宣告成員宣告前
 	///
 	/// 可選選項：
 	/// extensionacl: `on-extension` 放置於 extension 宣告前（預設值）、`on-declarations` 放置於成員宣告前
-	case extensionAccessControl(rule: RuleFlag, extensionacl: String = "on-extension")
+	case extensionAccessControl(rule: Flag, extensionacl: String = "on-extension")
 
 	/// 設定檔案標頭
 	///
@@ -110,22 +110,22 @@ enum FormatRule {
 	/// header: 可使用 `strip`、`ignore` 或是要設定的檔案標頭文字
 	/// dateformat: 日期格式
 	/// timezone: 時區
-	case fileHeader(rule: RuleFlag, header: String = "", dateformat: String = "system", timezone: String = "system")
+	case fileHeader(rule: Flag, header: String = "", dateformat: String = "system", timezone: String = "system")
 
 	/// 在 `extension` 上偏好使用 `<>` 約束取代 `where` 型態約束
-	case genericExtensions(rule: RuleFlag)
+	case genericExtensions(rule: Flag)
 
 	/// 確保檔案標頭中的檔案名稱與實際檔案名稱相同
-	case headerFileName(rule: RuleFlag)
+	case headerFileName(rule: Flag)
 
 	/// 將 `await` 關鍵字移動到表達式的開頭
-	case hoistAwait(rule: RuleFlag)
+	case hoistAwait(rule: Flag)
 
 	/// 將表達式間的 `let` 與 `var` 提取到表達式開頭
-	case hoistPatternLet(rule: RuleFlag)
+	case hoistPatternLet(rule: Flag)
 
 	/// 將表達式間的 `try` 提取到表達式開頭
-	case hoistTry(rule: RuleFlag)
+	case hoistTry(rule: Flag)
 
 	/// 縮進控制
 	///
@@ -137,7 +137,7 @@ enum FormatRule {
 	/// - xcodeindentation: 符合 Xcode 縮進設定
 	/// - indentstrings: 多行字串縮進
 	case indent(
-		rule: RuleFlag,
+		rule: Flag,
 		indent: String,
 		tabwidth: String = "unspecified",
 		indentcase: Bool = false,
@@ -147,23 +147,23 @@ enum FormatRule {
 	)
 
 	/// 當 `init(coder:)` 內容沒有任何實現時加上不可用標籤
-	case initCoderUnavailable(rule: RuleFlag)
+	case initCoderUnavailable(rule: Flag)
 
 	/// 使用 `.isEmpty` 取代 `.count == 0` 的表達式
-	case isEmpty(rule: RuleFlag)
+	case isEmpty(rule: Flag)
 
 	/// 將前導逗號移動到分行符號前
-	case leadingDelimiters(rule: RuleFlag)
+	case leadingDelimiters(rule: Flag)
 
 	/// 在檔案尾端加入空白行
-	case linebreakAtEndOfFile(rule: RuleFlag)
+	case linebreakAtEndOfFile(rule: Flag)
 
 	/// 檔案使用的換行符號
-	case linebreaks(rule: RuleFlag, linebreaks: String = "lf")
+	case linebreaks(rule: Flag, linebreaks: String = "lf")
 
 	/// 在類型宣告或是 `extension` 外部加上 `MARK` 標記
 	case markTypes(
-		rule: RuleFlag,
+		rule: Flag,
 		marktypes: String = "always",
 		typemark: String = "MARK: - %t",
 		markextensions: String = "always",
@@ -172,10 +172,10 @@ enum FormatRule {
 	)
 
 	/// 修飾詞排序
-	case modifierOrder(rule: RuleFlag)
+	case modifierOrder(rule: Flag)
 
 	/// 不使用擁有權修飾服
-	case noExplicitOwnership(rule: RuleFlag)
+	case noExplicitOwnership(rule: Flag)
 }
 
 extension FormatRule {
@@ -192,7 +192,7 @@ extension FormatRule {
 	private var command: [String] {
 		var command: [String] = []
 		for (label, option) in Mirror(reflecting: currentCase.value).children {
-			if let ruleFlag = option as? RuleFlag {
+			if let ruleFlag = option as? Flag {
 				command.append(contentsOf: ["--\(ruleFlag)", name])
 				guard case .enable = ruleFlag else {
 					print("規則 \(name) 未啟用")
