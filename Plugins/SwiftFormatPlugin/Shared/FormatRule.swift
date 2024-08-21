@@ -176,6 +176,35 @@ enum FormatRule {
 
 	/// 不使用擁有權修飾服
 	case noExplicitOwnership(rule: Flag)
+
+	/// 對於數字的格式化，使用底線分割提高可讀性
+	case numberFormatting(
+		rule: Flag
+
+		, // 小數的分組規則，可使用閾值或是 "none" 或是 "ignore"
+		decimalgrouping: String = "3,6"
+
+		, // 二進制數字分組規則，可使用閾值或是 "none" 或是 "ignore"
+		binarygrouping: String = "4,8"
+
+		, // 八進制數字分組規則，可使用閾值或是 "none" 或是 "ignore"
+		octalgrouping: String = "4,8"
+
+		, // 十六進制數字分組規則，可使用閾值或是 "none" 或是 "ignore"
+		hexgrouping: String = "4,8"
+
+		, // 是否啟用小數點的分組化
+		fractiongrouping: String = "disabled"
+
+		, // 是否對科學記號數字進行分組
+		exponentgrouping: String = "disabled"
+
+		, // 十六進制轉換為 "uppercase" 全大寫或是 "lowercase" 全部小寫
+		hexliteralcase: String = "uppercase"
+
+		, // 對於數值 `e` 使用 "uppercase" 大寫或是 "lowercase" 小寫
+		exponentcase: String = "lowercase"
+	)
 }
 
 extension FormatRule {
@@ -338,6 +367,8 @@ extension FormatRule {
 
 		, // 不啟用此規則
 		.noExplicitOwnership(rule: .disable)
+
+		, .numberFormatting(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
