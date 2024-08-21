@@ -10,8 +10,8 @@
 /// - note: 已將預設值設定為偏好的設定值
 enum FormatRule {
 
-	/// 當設定的單字字首為大寫時轉換成全大寫
-	case acronyms(rule: Flag, String)
+	/// 當設定的單字字首為大寫時轉換成全大寫，使用設定值 "ID,URL,UUID"
+	case acronyms(rule: Flag, String = "ID,URL,UUID")
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
 	case andOperator(preferComma: Flag)
@@ -252,9 +252,7 @@ extension FormatRule {
 
 	// 所有使用中的規則與其設定值
 	static let allRules: [Self] = [
-
-		  // 與預設相同選擇 "ID,URL,UUID"
-		.acronyms(rule: .enable, "ID,URL,UUID")
+		  .acronyms(rule: .enable)
 
 		, // 偏好逗號取代 `&&` 在判斷式中
 		.andOperator(preferComma: .enable)
