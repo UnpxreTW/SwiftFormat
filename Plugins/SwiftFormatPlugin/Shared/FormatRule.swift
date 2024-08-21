@@ -1,5 +1,5 @@
 //
-//  Rules.swift
+//  FormatRule.swift
 //  SwiftFormatPlugin
 //
 //  Copyright © 2024 UnpxreTW. All rights reserved.
