@@ -253,9 +253,7 @@ extension FormatRule {
 	// 所有使用中的規則與其設定值
 	static let allRules: [Self] = [
 		  .acronyms(rule: .enable)
-
-		, // 偏好逗號取代 `&&` 在判斷式中
-		.andOperator(preferComma: .enable)
+		, .andOperator(preferComma: .enable)
 
 		, // 偏好使用 `AnyObject`
 		.anyObjectProtocol(preferAnyObject: .enable)
