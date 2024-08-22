@@ -262,9 +262,7 @@ extension FormatRule {
 	static let allRules: [Self] = [
 		  .acronyms(rule: .enable)
 		, .andOperator(preferComma: .enable)
-
-		, // 偏好使用 `AnyObject`
-		.anyObjectProtocol(preferAnyObject: .enable)
+		, .anyObjectProtocol(preferAnyObject: .enable)
 
 		, // 偏好使用 `@main`
 		.applicationMain(preferMain: .enable)
