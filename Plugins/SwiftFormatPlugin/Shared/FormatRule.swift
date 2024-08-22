@@ -176,7 +176,7 @@ enum FormatRule {
 	/// 修飾詞排序
 	case modifierOrder(rule: Flag)
 
-	/// 不使用擁有權修飾服
+	/// 不使用擁有權修飾符
 	case noExplicitOwnership(rule: Flag)
 
 	/// 對於數字的格式化，使用底線分割提高可讀性
