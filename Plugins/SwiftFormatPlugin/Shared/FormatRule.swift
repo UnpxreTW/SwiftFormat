@@ -207,6 +207,14 @@ enum FormatRule {
 		, // 對於數值 `e` 使用 "uppercase" 大寫或是 "lowercase" 小寫
 		exponentcase: String = "lowercase"
 	)
+
+	/// 在等效時使用 `some` 關鍵字取代泛型約束宣告
+	case opaqueGenericParameters(
+		rule: Flag
+
+		, // 使用 `some Any` 取代不明確泛型宣告
+		someany: Bool = true
+	)
 }
 
 extension FormatRule {
@@ -367,6 +375,7 @@ extension FormatRule {
 		.noExplicitOwnership(rule: .disable)
 
 		, .numberFormatting(rule: .enable)
+		, .opaqueGenericParameters(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
