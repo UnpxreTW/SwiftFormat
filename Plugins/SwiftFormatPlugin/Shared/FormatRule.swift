@@ -369,9 +369,7 @@ extension FormatRule {
 		, // 修飾詞排序按照預設設定
 		.modifierOrder(rule: .enable)
 
-		, // 不啟用此規則
-		.noExplicitOwnership(rule: .disable)
-
+		, .noExplicitOwnership(rule: .disable)  // 不啟用此規則
 		, .numberFormatting(rule: .enable)
 		, .opaqueGenericParameters(rule: .enable)
 	]
