@@ -173,7 +173,7 @@ enum FormatRule {
 		groupedextension: String = "MARK: %c"
 	)
 
-	/// 修飾詞排序
+	/// 修飾詞排序按照預設排序
 	case modifierOrder(rule: Flag)
 
 	/// 不使用擁有權修飾符
@@ -366,9 +366,7 @@ extension FormatRule {
 		, // 只啟用部分功能
 		.markTypes(rule: .enable, marktypes: "never")
 
-		, // 修飾詞排序按照預設設定
-		.modifierOrder(rule: .enable)
-
+		, .modifierOrder(rule: .enable)
 		, .noExplicitOwnership(rule: .disable)  // 不啟用此規則
 		, .numberFormatting(rule: .enable)
 		, .opaqueGenericParameters(rule: .enable)
