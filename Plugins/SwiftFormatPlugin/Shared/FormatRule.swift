@@ -265,9 +265,7 @@ extension FormatRule {
 		, .anyObjectProtocol(preferAnyObject: .enable)
 		, .applicationMain(preferMain: .enable)
 		, .assertionFailures(rule: .enable)
-
-		, // 啟用
-		.blankLineAfterImports(rule: .enable)
+		, .blankLineAfterImports(rule: .enable)
 
 		, // 不在 `switch` 中的每個 `case` 間插入空白行
 		.blankLineAfterSwitchCase(rule: .disable)
