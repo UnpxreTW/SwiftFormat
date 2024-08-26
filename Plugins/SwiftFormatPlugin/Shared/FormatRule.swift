@@ -263,9 +263,7 @@ extension FormatRule {
 		  .acronyms(rule: .enable)
 		, .andOperator(preferComma: .enable)
 		, .anyObjectProtocol(preferAnyObject: .enable)
-
-		, // 偏好使用 `@main`
-		.applicationMain(preferMain: .enable)
+		, .applicationMain(preferMain: .enable)
 
 		, // 啟用
 		.assertionFailures(rule: .enable)
