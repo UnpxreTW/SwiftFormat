@@ -264,9 +264,7 @@ extension FormatRule {
 		, .andOperator(preferComma: .enable)
 		, .anyObjectProtocol(preferAnyObject: .enable)
 		, .applicationMain(preferMain: .enable)
-
-		, // 啟用
-		.assertionFailures(rule: .enable)
+		, .assertionFailures(rule: .enable)
 
 		, // 啟用
 		.blankLineAfterImports(rule: .enable)
