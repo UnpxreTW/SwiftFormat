@@ -30,7 +30,8 @@ let package = Package(
                     .writeToPackageDirectory(reason: "This command reformats source files"),
                 ]
             ),
-            dependencies: [.target(name: "CommandLineTool")]
+            dependencies: [.target(name: "CommandLineTool")],
+            path: "Plugins/SwiftFormatPlugin"
         ),
     ]
 )
