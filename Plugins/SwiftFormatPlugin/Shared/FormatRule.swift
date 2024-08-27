@@ -215,6 +215,41 @@ enum FormatRule {
 		,  // 使用 `some Any` 取代不明確泛型宣告
 		someany: Bool = true
 	)
+
+	/// 結構組織註解
+	case organizeDeclarations(
+		rule: Flag
+
+		,  // 標記使用的範本（按照預設）
+		categorymark: String = "MARK: %c"
+
+		,  // 在不同的類別中插入結構組織註解
+		markcategories: Bool = true
+
+		,  // 在第一個組織前的宣告
+		beforemarks: String = "typealias,struct"
+
+		,  // 包含在 Lifecycle 組織中的宣告
+		lifecycle: String = ""
+
+		,  // 要進行組織結構的結構
+		organizetypes: String = "class,actor,struct"
+
+		,  // 在 `struct` 中要進行組織結構的最小行數
+		structthreshold: Int = 0
+
+		,  // 在 `class` 中要進行組織結構的最小行數
+		classthreshold: Int = 0
+
+		,  // 在 `enum` 中要進行組織結構的最小行數
+		enumthreshold: Int = 0
+
+		,  // 在 `extension` 中要進行組織結構的最小行數
+		extensionlength: Int = 0
+
+		,  // 按照 `visibility` 可見性宣告進行組織或是 `type` 宣告類型進行組織
+		organizationmode: String = "visibility"
+	)
 }
 
 extension FormatRule {
@@ -242,6 +277,7 @@ extension FormatRule {
 			let option: String = switch option {
 			case let option as Option: String(describing: option)
 			case let option as Bool: option ? "true" : "false"
+			case let option as Int: "\(option)"
 			case let option as String: option
 			default: ""
 			}
@@ -363,6 +399,7 @@ extension FormatRule {
 		, .noExplicitOwnership(rule: .disable)  // 不啟用此規則
 		, .numberFormatting(rule: .enable)
 		, .opaqueGenericParameters(rule: .enable)
+		, .organizeDeclarations(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
