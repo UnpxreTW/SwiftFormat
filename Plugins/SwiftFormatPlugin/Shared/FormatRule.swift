@@ -302,9 +302,7 @@ extension FormatRule {
 		, .applicationMain(preferMain: .enable)
 		, .assertionFailures(rule: .enable)
 		, .blankLineAfterImports(rule: .enable)
-
-		, // 不在 `switch` 中的每個 `case` 間插入空白行
-		.blankLineAfterSwitchCase(rule: .disable)
+		, .blankLineAfterSwitchCase(rule: .disable)  // 不在 `switch` 中的每個 `case` 間插入空白行
 
 		, // 在 MARK 註解周圍加上空白行
 		.blankLinesAroundMark(rule: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
