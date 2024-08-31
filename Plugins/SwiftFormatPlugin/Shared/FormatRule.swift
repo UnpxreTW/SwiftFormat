@@ -165,11 +165,21 @@ enum FormatRule {
 
 	/// 在類型宣告或是 `extension` 外部加上 `MARK` 標記
 	case markTypes(
-		rule: Flag,
-		marktypes: String = "always",
-		typemark: String = "MARK: - %t",
-		markextensions: String = "always",
-		extensionmark: String = "MARK: - %t + %c",
+		rule: Flag
+
+		,  // 不對 `type` 宣告加上標記
+		marktypes: String = "never"
+
+		,  // 對於 `type` 的標記格式
+		typemark: String = "MARK: - %t"
+
+		,  // 對於 `extension` 使用標記
+		markextensions: String = "always"
+
+		,  // 對於 `extension` 使用的標記格式
+		extensionmark: String = "MARK: - %t + %c"
+
+		,
 		groupedextension: String = "MARK: %c"
 	)
 
@@ -401,9 +411,7 @@ extension FormatRule {
 
 		, .linebreaks(rule: .enable)
 
-		, // 只啟用部分功能
-		.markTypes(rule: .enable, marktypes: "never")
-
+		, .markTypes(rule: .enable)
 		, .modifierOrder(rule: .enable)
 		, .noExplicitOwnership(rule: .disable)  // 不啟用此規則
 		, .numberFormatting(rule: .enable)
