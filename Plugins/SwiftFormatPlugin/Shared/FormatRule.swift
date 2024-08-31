@@ -250,6 +250,17 @@ enum FormatRule {
 		,  // 按照 `visibility` 可見性宣告進行組織或是 `type` 宣告類型進行組織
 		organizationmode: String = "visibility"
 	)
+
+	/// 將 `forEach` 轉換為一般 for loops 結構
+	case preferForLoop(
+		rule: Flag
+
+		,  // 進行轉換 `convert` （預設）或是 `ignore` 略過
+		anonymousforeach: String = "convert"
+
+		,  // 轉換單行的 `forEach` 設定 `convert` 進行轉換或是 `ignore` 略過（預設）
+		onelineforeach: String = "ignore"
+	)
 }
 
 extension FormatRule {
@@ -398,6 +409,7 @@ extension FormatRule {
 		, .numberFormatting(rule: .enable)
 		, .opaqueGenericParameters(rule: .enable)
 		, .organizeDeclarations(rule: .enable)
+		, .preferForLoop(rule: .disable)  // 不進行此轉換
 	]
 
 	/// 將設定的規則轉換為命令行指令
