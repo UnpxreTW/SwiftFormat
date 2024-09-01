@@ -406,9 +406,7 @@ extension FormatRule {
 		, // 可在依據上下文自行決定
 		.leadingDelimiters(rule: .disable)
 
-		, // 啟用
-		.linebreakAtEndOfFile(rule: .enable)
-
+		, .linebreakAtEndOfFile(rule: .enable)
 		, .linebreaks(rule: .enable)
 		, .markTypes(rule: .enable)
 		, .modifierOrder(rule: .enable)
