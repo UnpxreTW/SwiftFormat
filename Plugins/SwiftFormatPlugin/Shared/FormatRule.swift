@@ -410,7 +410,6 @@ extension FormatRule {
 		.linebreakAtEndOfFile(rule: .enable)
 
 		, .linebreaks(rule: .enable)
-
 		, .markTypes(rule: .enable)
 		, .modifierOrder(rule: .enable)
 		, .noExplicitOwnership(rule: .disable)  // 不啟用此規則
