@@ -403,9 +403,7 @@ extension FormatRule {
 		, // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題所以不啟用
 		.isEmpty(rule: .disable)
 
-		, // 可在依據上下文自行決定
-		.leadingDelimiters(rule: .disable)
-
+		, .leadingDelimiters(rule: .disable)  // 不啟用，根據上下文決定
 		, .linebreakAtEndOfFile(rule: .enable)
 		, .linebreaks(rule: .enable)
 		, .markTypes(rule: .enable)
