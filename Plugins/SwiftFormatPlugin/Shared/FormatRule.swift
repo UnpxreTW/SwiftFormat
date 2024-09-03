@@ -32,7 +32,12 @@ enum FormatRule {
 	case blankLineAfterSwitchCase(rule: Flag)
 
 	/// 在 `MARK` 註解周圍加上空白行
-	case blankLinesAroundMark(rule: Flag, lineaftermarks: Option)
+	case blankLinesAroundMark(
+		rule: Flag
+
+		,  // 在 `MARK` 後加上空白行
+		lineaftermarks: Option = [.enable, .convertToTrueOrFlase]
+	)
 
 	/// 移除區塊間尾端的空白行
 	case blankLinesAtEndOfScope(rule: Flag)
@@ -324,9 +329,7 @@ extension FormatRule {
 		, .assertionFailures(rule: .enable)
 		, .blankLineAfterImports(rule: .enable)
 		, .blankLineAfterSwitchCase(rule: .disable)  // 不在 `switch` 中的每個 `case` 間插入空白行
-
-		, // 在 MARK 註解周圍加上空白行
-		.blankLinesAroundMark(rule: .enable, lineaftermarks: [.enable, .convertToTrueOrFlase])
+		, .blankLinesAroundMark(rule: .enable)
 
 		, // 移除區塊間尾端的空白行
 		.blankLinesAtEndOfScope(rule: .enable)
