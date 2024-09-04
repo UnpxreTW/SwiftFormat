@@ -341,9 +341,7 @@ extension FormatRule {
 		, .blankLinesAroundMark(rule: .enable)
 		, .blankLinesAtEndOfScope(rule: .enable)
 		, .blankLinesAtStartOfScope(rule: .enable)
-
-		, // 移除鏈式函數間的空白行
-		.blankLinesBetweenChainedFunctions(rule: .enable)
+		, .blankLinesBetweenChainedFunctions(rule: .enable)
 
 		, // 不移除 `import` 聲明間的空白行
 		.blankLinesBetweenImports(rule: .disable)
