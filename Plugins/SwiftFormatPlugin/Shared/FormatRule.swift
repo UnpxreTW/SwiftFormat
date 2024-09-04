@@ -282,6 +282,9 @@ enum FormatRule {
 
 	/// 在等效時偏好轉換為 `keyPath` 語法
 	case preferKeyPath(rule: Flag)
+
+	/// 移除多餘的反引號
+	case redundantBackticks(rule: Flag)
 }
 
 extension FormatRule {
@@ -421,6 +424,7 @@ extension FormatRule {
 		, .organizeDeclarations(rule: .enable)
 		, .preferForLoop(rule: .disable)  // 不進行此轉換
 		, .preferKeyPath(rule: .enable)
+		, .redundantBackticks(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
