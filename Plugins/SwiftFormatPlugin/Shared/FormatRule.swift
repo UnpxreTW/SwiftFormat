@@ -279,6 +279,9 @@ enum FormatRule {
 		,  // 轉換單行的 `forEach` 設定 `convert` 進行轉換或是 `ignore` 略過（預設）
 		onelineforeach: String = "ignore"
 	)
+
+	/// 在等效時偏好轉換為 `keyPath` 語法
+	case preferKeyPath(rule: Flag)
 }
 
 extension FormatRule {
@@ -417,6 +420,7 @@ extension FormatRule {
 		, .opaqueGenericParameters(rule: .enable)
 		, .organizeDeclarations(rule: .enable)
 		, .preferForLoop(rule: .disable)  // 不進行此轉換
+		, .preferKeyPath(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
