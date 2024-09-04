@@ -330,9 +330,7 @@ extension FormatRule {
 		, .blankLineAfterImports(rule: .enable)
 		, .blankLineAfterSwitchCase(rule: .disable)  // 不在 `switch` 中的每個 `case` 間插入空白行
 		, .blankLinesAroundMark(rule: .enable)
-
-		, // 移除區塊間尾端的空白行
-		.blankLinesAtEndOfScope(rule: .enable)
+		, .blankLinesAtEndOfScope(rule: .enable)
 
 		, // 移除區塊區間開頭的空白行（但是保留類型宣告的開頭空白行）
 		.blankLinesAtStartOfScope(rule: .enable, typeblanklines: "preserve")
