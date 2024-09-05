@@ -342,15 +342,9 @@ extension FormatRule {
 		, .blankLinesAtEndOfScope(rule: .enable)
 		, .blankLinesAtStartOfScope(rule: .enable)
 		, .blankLinesBetweenChainedFunctions(rule: .enable)
-
-		, // 不移除 `import` 聲明間的空白行
-		.blankLinesBetweenImports(rule: .disable)
-
-		, // 在宣告空間間插入空白行
-		.blankLinesBetweenScopes(rule: .enable)
-
-		, // 轉換多行註解區塊為連續的單行註解（包含文件註解）
-		.blockComments(rule: .enable)
+		, .blankLinesBetweenImports(rule: .disable)
+		, .blankLinesBetweenScopes(rule: .enable)
+		, .blockComments(rule: .enable)
 
 		, // 大括弧開頭不使用 allman 縮排樣式
 		.braces(rule: .enable, allman: false)
