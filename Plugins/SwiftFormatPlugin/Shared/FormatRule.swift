@@ -63,7 +63,7 @@ enum FormatRule {
 	case blockComments(rule: Flag)
 
 	/// 是否使用 Allman 樣式的大括弧
-	case braces(rule: Flag, allman: Bool)
+	case braces(rule: Flag, allman: Bool = false)
 
 	/// 使用 `if/switch` 簡化賦值
 	///
@@ -345,9 +345,7 @@ extension FormatRule {
 		, .blankLinesBetweenImports(rule: .disable)
 		, .blankLinesBetweenScopes(rule: .enable)
 		, .blockComments(rule: .enable)
-
-		, // 大括弧開頭不使用 allman 縮排樣式
-		.braces(rule: .enable, allman: false)
+		, .braces(rule: .enable)
 
 		, // 總是使用 `if/switch` 簡化賦值
 		.conditionalAssignment(rule: .enable, condassignment: "always")
