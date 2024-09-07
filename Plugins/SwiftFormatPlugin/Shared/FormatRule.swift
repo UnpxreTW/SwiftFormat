@@ -11,7 +11,12 @@
 enum FormatRule {
 
 	/// 當設定的單字字首為大寫時轉換成全大寫，使用設定值 "ID,URL,UUID"
-	case acronyms(rule: Flag, String = "ID,URL,UUID")
+	case acronyms(
+		rule: Flag
+
+		,  // 要進行轉換的單字
+		String = "ID,URL,UUID"
+	)
 
 	/// 偏好在 `if`、`guard`、`while` 中使用逗號取代 `&&`
 	case andOperator(preferComma: Flag)
