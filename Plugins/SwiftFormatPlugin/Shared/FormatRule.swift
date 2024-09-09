@@ -71,10 +71,12 @@ enum FormatRule {
 	case braces(rule: Flag, allman: Bool = false)
 
 	/// 使用 `if/switch` 簡化賦值
-	///
-	/// 可選參數：
-	/// - condassignment: `after-property` 只在變數宣告後進行簡化（預設值）、`always` 總是簡化
-	case conditionalAssignment(rule: Flag, condassignment: String = "after-property")
+	case conditionalAssignment(
+		rule: Flag
+
+		,  // 使用 `after-property` 只在變數宣告後進行簡化、`always` 總是簡化
+		condassignment: String = "always"
+	)
 
 	/// 將連續的空白行替換為單個空白行
 	case consecutiveBlankLines(rule: Flag)
@@ -351,9 +353,7 @@ extension FormatRule {
 		, .blankLinesBetweenScopes(rule: .enable)
 		, .blockComments(rule: .enable)
 		, .braces(rule: .enable)
-
-		, // 總是使用 `if/switch` 簡化賦值
-		.conditionalAssignment(rule: .enable, condassignment: "always")
+		, .conditionalAssignment(rule: .enable)
 
 		, // 限制空白行最多只有一行
 		.consecutiveBlankLines(rule: .enable)
