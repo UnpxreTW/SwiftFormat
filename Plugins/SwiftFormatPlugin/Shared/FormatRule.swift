@@ -354,9 +354,7 @@ extension FormatRule {
 		, .blockComments(rule: .enable)
 		, .braces(rule: .enable)
 		, .conditionalAssignment(rule: .enable)
-
-		, // 限制空白行最多只有一行
-		.consecutiveBlankLines(rule: .enable)
+		, .consecutiveBlankLines(rule: .enable)
 
 		, // 限制空白最多只有一個
 		.consecutiveSpaces(rule: .enable)
