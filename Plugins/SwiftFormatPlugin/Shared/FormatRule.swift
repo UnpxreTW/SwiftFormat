@@ -292,6 +292,9 @@ enum FormatRule {
 
 	/// 移除多餘的反引號
 	case redundantBackticks(rule: Flag)
+
+	/// 移除 `switch-case` 中多餘的 `break`
+	case redundantBreak(rule: Flag)
 }
 
 extension FormatRule {
@@ -416,6 +419,7 @@ extension FormatRule {
 		, .preferForLoop(rule: .disable)  // 不進行此轉換
 		, .preferKeyPath(rule: .enable)
 		, .redundantBackticks(rule: .enable)
+		, .redundantBreak(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
