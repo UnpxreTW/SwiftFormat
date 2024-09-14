@@ -67,8 +67,13 @@ enum FormatRule {
 	/// 將多行註解區塊轉換為連續的單行註解
 	case blockComments(rule: Flag)
 
-	/// 是否使用 Allman 樣式的大括弧
-	case braces(rule: Flag, allman: Bool = false)
+	/// 大括弧格式
+	case braces(
+		rule: Flag
+
+		,  // 是否使用 Allman 樣式的大括弧格式
+		allman: Bool = false
+	)
 
 	/// 使用 `if/switch` 簡化賦值
 	case conditionalAssignment(
