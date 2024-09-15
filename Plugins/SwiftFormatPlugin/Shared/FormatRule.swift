@@ -93,10 +93,12 @@ enum FormatRule {
 	case consistentSwitchCaseSpacing(rule: Flag)
 
 	/// 在宣告前使用文件註解風格
-	///
-	/// 可選參數：
-	/// - doccomments: `before-declarations` 只在宣告前使用（預設值）、`always` 總是使用
-	case docComments(rule: Flag, doccomments: String = "before-declarations")
+	case docComments(
+		rule: Flag
+
+		,  // `before-declarations` 只在宣告前使用（預設值）、`always` 總是使用
+		doccomments: String = "before-declarations"
+	)
 
 	/// 移除重複的 `import` 宣告
 	case duplicateImports(rule: Flag)
