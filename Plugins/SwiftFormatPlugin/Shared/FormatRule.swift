@@ -305,6 +305,9 @@ enum FormatRule {
 
 	/// 移除單語句閉包，更改為直接執行語法
 	case redundantClosure(rule: Flag)
+
+	/// 移除多餘的訪問控制關鍵字
+	case redundantExtensionACL(rule: Flag)
 }
 
 extension FormatRule {
@@ -423,6 +426,7 @@ extension FormatRule {
 		, .redundantBackticks(rule: .enable)
 		, .redundantBreak(rule: .enable)
 		, .redundantClosure(rule: .disable)  // 根據上下文與美觀性決定
+		, .redundantExtensionACL(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
