@@ -308,6 +308,9 @@ enum FormatRule {
 
 	/// 移除多餘的訪問控制關鍵字
 	case redundantExtensionACL(rule: Flag)
+
+	/// 在等效時將 `fileprivate` 轉換為 `private`
+	case redundantFileprivate(rule: Flag)
 }
 
 extension FormatRule {
@@ -427,6 +430,7 @@ extension FormatRule {
 		, .redundantBreak(rule: .enable)
 		, .redundantClosure(rule: .disable)  // 根據上下文與美觀性決定
 		, .redundantExtensionACL(rule: .enable)
+		, .redundantFileprivate(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
