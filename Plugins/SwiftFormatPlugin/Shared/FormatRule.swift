@@ -365,18 +365,10 @@ extension FormatRule {
 		, .braces(rule: .enable)
 		, .conditionalAssignment(rule: .enable)
 		, .consecutiveBlankLines(rule: .enable)
-
-		, // 限制空白最多只有一個
-		.consecutiveSpaces(rule: .enable)
-
-		, // 保持 `switch-case` 間隔一致
-		.consistentSwitchCaseSpacing(rule: .enable)
-
-		, // 宣告前總是使用文件風格註解，而程式碼中總是使用一般註解
-		.docComments(rule: .enable)
-
-		, // 移除重複的 `import` 宣告
-		.duplicateImports(rule: .enable)
+		, .consecutiveSpaces(rule: .enable)
+		, .consistentSwitchCaseSpacing(rule: .enable)
+		, .docComments(rule: .enable)
+		, .duplicateImports(rule: .enable)
 
 		, // 都放置於同一行
 		.elseOnSameLine(rule: .enable, guardelse: "same-line")
