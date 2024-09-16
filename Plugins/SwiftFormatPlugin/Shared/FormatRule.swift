@@ -311,6 +311,9 @@ enum FormatRule {
 
 	/// 在等效時將 `fileprivate` 轉換為 `private`
 	case redundantFileprivate(rule: Flag)
+
+	/// 移除計算屬性中多餘的 `get` 關鍵字
+	case redundantGet(rule: Flag)
 }
 
 extension FormatRule {
@@ -431,6 +434,7 @@ extension FormatRule {
 		, .redundantClosure(rule: .disable)  // 根據上下文與美觀性決定
 		, .redundantExtensionACL(rule: .enable)
 		, .redundantFileprivate(rule: .enable)
+		, .redundantGet(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
