@@ -115,10 +115,12 @@ enum FormatRule {
 	)
 
 	/// 移除空的大括弧組內部的內容
-	///
-	/// 可選選項
-	/// - emptybraces: `no-space` 無空格（預設值）、`spaced` 單個空格、`linebreak` 換行符號
-	case emptyBraces(rule: Flag, emptybraces: String = "no-space")
+	case emptyBraces(
+		rule: Flag
+
+		,  // 使用 `no-space` 無空格（預設值）、`spaced` 單個空格、`linebreak` 換行符號
+		emptybraces: String = "no-space"
+	)
 
 	/// 將只有 `static` 修飾成員的類別或是結構轉換為 `enum` 作為命名空間
 	///
@@ -386,9 +388,7 @@ extension FormatRule {
 		, .docComments(rule: .enable)
 		, .duplicateImports(rule: .enable)
 		, .elseOnSameLine(rule: .enable)
-
-		, // 清除空的大括弧中的內容
-		.emptyBraces(rule: .enable)
+		, .emptyBraces(rule: .enable)
 
 		, // 不自動轉換為 `enum`
 		.enumNamespaces(rule: .disable)
