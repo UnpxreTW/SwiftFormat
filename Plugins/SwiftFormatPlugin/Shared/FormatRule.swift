@@ -123,10 +123,12 @@ enum FormatRule {
 	)
 
 	/// 將只有 `static` 修飾成員的類別或是結構轉換為 `enum` 作為命名空間
-	///
-	/// 可選選項：
-	/// - enumnamespaces: `always` 總是轉換（預設）、`structs-only` 只對結構進行轉換
-	case enumNamespaces(rule: Flag, enumnamespaces: String = "always")
+	case enumNamespaces(
+		rule: Flag
+
+		,  // `always` 總是轉換（預設）、`structs-only` 只對結構進行轉換
+		enumnamespaces: String = "always"
+	)
 
 	/// 設定 `extension` 的訪問控制關鍵字放置於 `extension` 前或是其內部宣告成員宣告前
 	///
@@ -389,9 +391,7 @@ extension FormatRule {
 		, .duplicateImports(rule: .enable)
 		, .elseOnSameLine(rule: .enable)
 		, .emptyBraces(rule: .enable)
-
-		, // 不自動轉換為 `enum`
-		.enumNamespaces(rule: .disable)
+		, .enumNamespaces(rule: .disable)  // 不自動轉換為 `enum`
 
 		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
 		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
