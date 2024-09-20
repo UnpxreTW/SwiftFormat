@@ -131,10 +131,12 @@ enum FormatRule {
 	)
 
 	/// 設定 `extension` 的訪問控制關鍵字放置於 `extension` 前或是其內部宣告成員宣告前
-	///
-	/// 可選選項：
-	/// extensionacl: `on-extension` 放置於 extension 宣告前（預設值）、`on-declarations` 放置於成員宣告前
-	case extensionAccessControl(rule: Flag, extensionacl: String = "on-extension")
+	case extensionAccessControl(
+		rule: Flag
+
+		,  // `on-extension` 放置於 extension 宣告前、`on-declarations` 放置於成員宣告前
+		extensionacl: String = "on-declarations"
+	)
 
 	/// 設定檔案標頭
 	///
@@ -392,9 +394,7 @@ extension FormatRule {
 		, .elseOnSameLine(rule: .enable)
 		, .emptyBraces(rule: .enable)
 		, .enumNamespaces(rule: .disable)  // 不自動轉換為 `enum`
-
-		, // 偏好將訪問控制關鍵字放置於內部成原宣告前
-		.extensionAccessControl(rule: .enable, extensionacl: "on-declarations")
+		, .extensionAccessControl(rule: .enable)
 
 		, // 偏好使用 `<>` 取代 `where` 約束
 		.genericExtensions(rule: .enable)
