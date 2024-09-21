@@ -139,12 +139,18 @@ enum FormatRule {
 	)
 
 	/// 設定檔案標頭
-	///
-	/// 可選選項：
-	/// header: 可使用 `strip`、`ignore` 或是要設定的檔案標頭文字
-	/// dateformat: 日期格式
-	/// timezone: 時區
-	case fileHeader(rule: Flag, header: String = "", dateformat: String = "system", timezone: String = "system")
+	case fileHeader(
+		rule: Flag
+
+		,  // 可使用 `strip`、`ignore` 或是要設定的檔案標頭文字
+		header: String = ""
+
+		,  // 日期格式
+		dateformat: String = "system"
+
+		,  // 使用時區
+		timezone: String = "system"
+	)
 
 	/// 在 `extension` 上偏好使用 `<>` 約束取代 `where` 型態約束
 	case genericExtensions(rule: Flag)
