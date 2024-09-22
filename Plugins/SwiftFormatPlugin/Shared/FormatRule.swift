@@ -401,21 +401,11 @@ extension FormatRule {
 		, .emptyBraces(rule: .enable)
 		, .enumNamespaces(rule: .disable)  // 不自動轉換為 `enum`
 		, .extensionAccessControl(rule: .enable)
-
-		, // 偏好使用 `<>` 取代 `where` 約束
-		.genericExtensions(rule: .enable)
-
-		, // 檢查標頭檔案名稱
-		.headerFileName(rule: .enable)
-
-		, // 將 `await` 移動到表達式的開頭
-		.hoistAwait(rule: .enable)
-
-		, // 將表達式中的 `var` 與 `let` 提取到表達式開頭
-		.hoistPatternLet(rule: .enable)
-
-		, // 將表達式中的 `try` 提取到表達式開頭
-		.hoistTry(rule: .enable)
+		, .genericExtensions(rule: .enable)
+		, .headerFileName(rule: .enable)
+		, .hoistAwait(rule: .enable)
+		, .hoistPatternLet(rule: .enable)
+		, .hoistTry(rule: .enable)
 
 		, // 縮進設定使用製表符其餘設定為預設值
 		.indent(rule: .enable, indent: "tab")
