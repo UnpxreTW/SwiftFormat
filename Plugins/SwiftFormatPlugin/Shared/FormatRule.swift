@@ -413,9 +413,7 @@ extension FormatRule {
 		, // 啟用
 		.initCoderUnavailable(rule: .enable)
 
-		, // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題所以不啟用
-		.isEmpty(rule: .disable)
-
+		, .isEmpty(rule: .disable)  // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題
 		, .leadingDelimiters(rule: .disable)  // 可依據上下文自行決定
 		, .linebreakAtEndOfFile(rule: .enable)
 		, .linebreaks(rule: .enable)
