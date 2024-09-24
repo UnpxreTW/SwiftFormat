@@ -410,9 +410,7 @@ extension FormatRule {
 		, // 縮進設定使用製表符其餘設定為預設值
 		.indent(rule: .enable, indent: "tab")
 
-		, // 啟用
-		.initCoderUnavailable(rule: .enable)
-
+		, .initCoderUnavailable(rule: .enable)
 		, .isEmpty(rule: .disable)  // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題
 		, .leadingDelimiters(rule: .disable)  // 可依據上下文自行決定
 		, .linebreakAtEndOfFile(rule: .enable)
