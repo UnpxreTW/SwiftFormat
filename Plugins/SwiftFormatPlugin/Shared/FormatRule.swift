@@ -168,21 +168,25 @@ enum FormatRule {
 	case hoistTry(rule: Flag)
 
 	/// 縮進控制
-	///
-	/// 可選選項：
-	/// - indent: 縮進空格數量或是使用 "tab" 使用製表符
-	/// - tabwidth: 製表符寬度，預設為 `unspecified` 未指定
-	/// - indentcase: `switch-case` 內 `case` 是否縮進，預設不縮進
-	/// - ifdef: 在 `#if` 中是否縮進
-	/// - xcodeindentation: 符合 Xcode 縮進設定
-	/// - indentstrings: 多行字串縮進
 	case indent(
-		rule: Flag,
-		indent: String,
-		tabwidth: String = "unspecified",
-		indentcase: Bool = false,
-		ifdef: String = "indent",
-		xcodeindentation: String = "disabled",
+		rule: Flag
+
+		,  // 縮進空格數量或是使用 "tab" 使用製表符
+		indent: String = "tab"
+
+		,  // 製表符寬度，預設為 `unspecified` 未指定
+		tabwidth: String = "unspecified"
+
+		,  // `switch-case` 內 `case` 是否縮進，預設不縮進
+		indentcase: Bool = false
+
+		,  // 在 `#if` 中是否縮進
+		ifdef: String = "indent"
+
+		,  // 符合 Xcode 縮進設定
+		xcodeindentation: String = "disabled"
+
+		,  // 多行字串縮進
 		indentstrings: Bool = false
 	)
 
@@ -406,10 +410,7 @@ extension FormatRule {
 		, .hoistAwait(rule: .enable)
 		, .hoistPatternLet(rule: .enable)
 		, .hoistTry(rule: .enable)
-
-		, // 縮進設定使用製表符其餘設定為預設值
-		.indent(rule: .enable, indent: "tab")
-
+		, .indent(rule: .enable)
 		, .initCoderUnavailable(rule: .enable)
 		, .isEmpty(rule: .disable)  // 此規則有時會導致未實現 `isEmpty` 但是轉換使用導致編譯問題
 		, .leadingDelimiters(rule: .disable)  // 可依據上下文自行決定
