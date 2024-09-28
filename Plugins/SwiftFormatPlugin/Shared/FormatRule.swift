@@ -334,6 +334,9 @@ enum FormatRule {
 
 	/// 移除計算屬性中多餘的 `get` 關鍵字
 	case redundantGet(rule: Flag)
+
+	/// 移除多餘的 `init` 顯式呼叫
+	case redundantInit(rule: Flag)
 }
 
 extension FormatRule {
@@ -430,6 +433,7 @@ extension FormatRule {
 		, .redundantExtensionACL(rule: .enable)
 		, .redundantFileprivate(rule: .enable)
 		, .redundantGet(rule: .enable)
+		, .redundantInit(rule: .enable)
 	]
 
 	/// 將設定的規則轉換為命令行指令
