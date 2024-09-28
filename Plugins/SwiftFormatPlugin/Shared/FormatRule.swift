@@ -335,7 +335,7 @@ enum FormatRule {
 	/// 移除計算屬性中多餘的 `get` 關鍵字
 	case redundantGet(rule: Flag)
 
-	/// 移除多餘的 `init` 顯示呼叫
+	/// 移除多餘的 `init` 顯式呼叫
 	case redundantInit(rule: Flag)
 }
 
