@@ -337,6 +337,9 @@ enum FormatRule {
 
 	/// 移除多餘的 `init` 顯式呼叫
 	case redundantInit(rule: Flag)
+
+	/// 移除多餘的 `internal` 訪問控制符
+	case redundantInternal(rule: Flag)
 }
 
 extension FormatRule {
@@ -434,6 +437,7 @@ extension FormatRule {
 		, .redundantFileprivate(rule: .enable)
 		, .redundantGet(rule: .enable)
 		, .redundantInit(rule: .enable)
+		, .redundantInternal(rule: .disable)  // 手動決定是否加上冗餘的修飾符
 	]
 
 	/// 將設定的規則轉換為命令行指令
